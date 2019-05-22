@@ -1,0 +1,24 @@
+apply plugin: 'java-library'
+apply plugin: 'groovy'
+apply from: '../upload.gradle'
+
+
+repositories {
+    google()
+    jcenter()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile gradleApi() //gradle sdk
+    compile localGroovy() //groovy sdk
+    compile 'com.squareup:javapoet:1.9.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.android.tools.build:gradle:3.2.1'
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
