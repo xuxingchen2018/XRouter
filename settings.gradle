@@ -1,1 +1,1 @@
-include ':app', ':XRouterAnnotation', ':XRouterCompiler', ':XRouterGradlePlugin', ':library', ':routers', ':demo'
+include ':app', ':library', ':routers', ':demo'
