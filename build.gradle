@@ -5,13 +5,15 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
-        maven {
-            url 'file:///Users/xuxingchen/MavenLocal/'
-        }
+        mavenLocal()
+//        maven {
+//            url 'file:///Users/xuxingchen/MavenLocal/'
+//        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
-        classpath 'com.mrcd:xrouter-gradle-plugin:1.0.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.mrcd:xrouter-gradle-plugin:1.0.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         // NOTE: Do not place your application dependencies here; they belong
@@ -23,9 +25,9 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {
-            url RELEASE_REPOSITORY_URL
-        }
+//        maven {
+//            url RELEASE_REPOSITORY_URL
+//        }
     }
 }
 

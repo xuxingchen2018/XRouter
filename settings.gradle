@@ -1,1 +1,1 @@
-include ':app', ':library', ':routers', ':demo'
+include ':app', ':xrouter-api', ':routers', ':demo',':xrouter-annotation',':xrouter-compiler',':xrouter-gradle-plugin'
