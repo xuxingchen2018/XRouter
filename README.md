@@ -1,5 +1,5 @@
 # Android XRouter
-利用APT实现的一个轻量级路由框架，注意本库给予Java1.8，所以需要配置compileOptions
+利用APT实现的一个轻量级路由框架，注意本库基于Java1.8，所以需要配置compileOptions
 
 ### 功能实现：
 
