@@ -1,5 +1,5 @@
 # Android XRouter
-利用APT实现的一个轻量级路由框架，建议使用Java1.8
+利用APT实现的一个轻量级路由框架，注意本库给予Java1.8，所以需要配置compileOptions
 
 ### 功能实现：
 
@@ -12,33 +12,40 @@
 ### 使用
 
 1.  创建一个用于管理路由的库（routers）
-2.  根目录下的build.gradle文件中添加maven源地址，添加classpath，并且在routers库的build.gradle文件中添加插件，apply
-    plugin: 'com.mrcd.xrouter.engine'
+2.  根目录下的build.gradle文件中添加classpath，并且在routers库的build.gradle文件中添加插件
+    ```
+    classpath "com.mrcd:xrouter-gradle-plugin:1.0.5"
+    
+    apply plugin: 'com.mrcd.xrouter.engine'
+    ```
 3.  在routers库的build.gradle文件中添加依赖 
-```
-api "com.mrcd:xrouter-api:${VERSION_NAME}"
-```
+    ```
+    api "com.mrcd:xrouter-api:${VERSION_NAME}"
+    ```
 4.  将在需要使用路由功能的库中添加routers库的依赖，如果需要注解可另外添加依赖 
-```
-    implementation "com.mrcd:xrouter-annotation:${VERSION_NAME}"
-    annotationProcessor "com.mrcd:xrouter-compiler:${VERSION_NAME}"
-```
-注意，在添加了annotationProcessor注解处理后，请务必在build.gradle文件中的defaultConfig节点下添加如下配置
-```
-javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [MODULE_NAME: project.getName()]
+    ```
+        implementation "com.mrcd:xrouter-annotation:${VERSION_NAME}"
+        annotationProcessor "com.mrcd:xrouter-compiler:${VERSION_NAME}"
+    ```
+    注意，在添加了annotationProcessor注解处理后，请务必在build.gradle文件中的defaultConfig节点下添加如下配置
+    
+    ```
+        javaCompileOptions {
+                    annotationProcessorOptions {
+                        arguments = [MODULE_NAME: project.getName()]
+                    }
+                }
+    ```
+
+    如果有乱码问题，请在android节点下添加如下配置
+
+    ```
+        compileOptions {
+                encoding = "UTF-8"
+                sourceCompatibility = '1.8'
+                targetCompatibility = '1.8'
             }
-        }
-```
-如果有乱码问题，请在android节点下添加如下配置
-```
-compileOptions {
-        encoding = "UTF-8"
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
-    }
-```
+    ```
 5.  运行gradlew
     :routers:makeRouters或者再AS右侧gradle任务导航栏中找到对应的task双击运行即可
 6.  task运行完成后，在routers目录下会多出com.mrcd.xrouter.routers目录，在目录下即都是生成的路由表

@@ -32,6 +32,7 @@ import javax.annotation.processing.Filer;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedOptions;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
@@ -45,7 +46,12 @@ import javax.lang.model.util.Elements;
  */
 @AutoService(Processor.class)
 @SupportedOptions(Constant.KEY_MODULE_NAME)
+@SupportedAnnotationTypes({RouterProcess.PATH_ANNOTATION, RouterProcess.PARAM_ANNOTATION})
 public class RouterProcess extends AbstractProcessor {
+
+    public static final String PATH_ANNOTATION = "com.mrcd.xrouter.annotation.XPath";
+
+    public static final String PARAM_ANNOTATION = "com.mrcd.xrouter.annotation.XParam";
 
     /**
      * 同一个library下路由名重复
