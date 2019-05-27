@@ -14,7 +14,7 @@ dependencies {
 //    依赖移除，直接加源码
 //    implementation 'com.squareup:javapoet:1.9.0'
 //    implementation 'com.google.code.gson:gson:2.8.5'
-    compile 'com.android.tools.build:gradle:3.2.1'
+    compile 'com.android.tools.build:gradle:3.1.4'
 }
 
 sourceCompatibility = "8"

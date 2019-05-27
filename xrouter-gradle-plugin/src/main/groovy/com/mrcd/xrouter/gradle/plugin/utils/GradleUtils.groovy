@@ -3,7 +3,6 @@ package com.mrcd.xrouter.gradle.plugin.utils
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryPlugin
 import com.mrcd.xrouter.gradle.plugin.configs.ItemProjectConfig
-import org.apache.http.util.TextUtils
 import org.gradle.api.Project
 
 class GradleUtils {
@@ -23,7 +22,7 @@ class GradleUtils {
 
     static String getAnnotationDep(String libraryVersion, ItemProjectConfig config) {
         if (config.useAnnotation) {
-            String version = TextUtils.isEmpty(libraryVersion) ? '1.0.0' : libraryVersion
+            String version = StringUtils.isEmpty(libraryVersion) ? '1.0.0' : libraryVersion
             return "com.mrcd:xrouter-annotation:${version}"
         }
         return ""
@@ -31,7 +30,7 @@ class GradleUtils {
 
     static String getCompilerDep(String libraryVersion, ItemProjectConfig config) {
         if (config.useCompiler) {
-            String version = TextUtils.isEmpty(libraryVersion) ? '1.0.0' : libraryVersion
+            String version = StringUtils.isEmpty(libraryVersion) ? '1.0.0' : libraryVersion
             return "com.mrcd:xrouter-compiler:${version}"
         }
         return ""
@@ -39,7 +38,7 @@ class GradleUtils {
 
     static String getLibraryDep(String libraryVersion, ItemProjectConfig config) {
         if (config.useLibrary) {
-            String version = TextUtils.isEmpty(libraryVersion) ? '1.0.0' : libraryVersion
+            String version = StringUtils.isEmpty(libraryVersion) ? '1.0.0' : libraryVersion
             return "com.mrcd:xrouter-api:${version}"
         }
         return ""

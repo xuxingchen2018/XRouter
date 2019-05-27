@@ -6,7 +6,7 @@ import com.mrcd.xrouter.gradle.plugin.core.coder.Coder
 import com.mrcd.xrouter.gradle.plugin.utils.Constant
 import com.mrcd.xrouter.gradle.plugin.utils.GradleUtils
 import com.mrcd.xrouter.gradle.plugin.utils.JsonIO
-import org.apache.http.util.TextUtils
+import com.mrcd.xrouter.gradle.plugin.utils.StringUtils
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -32,16 +32,20 @@ class CoreWork implements IEngineWork {
         DevelopConfig config
         ExecResult execResult
 
+        StringBuffer buffer = new String("gradlew")
         //获取主工程目录下的APP工程
         project.rootProject.childProjects.values().each { childProject ->
             if (GradleUtils.isAndroidProject(childProject)) {
                 projects.add(childProject.name)
                 String taskName = String.format(taskNameFormat, childProject.name)
                 args.add(taskName)
-                println "Task任务:  " + taskName
+                buffer.append(" " + taskName)
+                println "Task >>>:  " + taskName
 
             }
         }
+        args.add(" -continue")
+        buffer.append(" -continue")
 
         //收集开发者的配置
         task.doFirst {
@@ -50,7 +54,7 @@ class CoreWork implements IEngineWork {
             projects.each { itemProject ->
                 File jsonFile = Constant.getJsonCacheFile(rootDir, itemProject)
                 if (jsonFile.exists()) {
-                    println "读取缓存配置 >>> " + jsonFile
+                    println "Read cache json >>> " + jsonFile
                     cachePaths.addAll(JsonIO.readJsonFile(jsonFile))
                 }
             }
@@ -58,6 +62,7 @@ class CoreWork implements IEngineWork {
             execResult = project.rootProject.exec(new Action<ExecSpec>() {
                 @Override
                 void execute(ExecSpec execSpec) {
+                    println buffer.toString()
                     execSpec.executable = "gradlew"
                     execSpec.args = args
                     execSpec.errorOutput = output
@@ -66,7 +71,7 @@ class CoreWork implements IEngineWork {
         }
         task.doLast {
             String errMsg = output.toString()
-            if (!TextUtils.isEmpty(errMsg) && errMsg.contains(Constant.EXCEPTION_KEY)) {
+            if (!StringUtils.isEmpty(errMsg) && errMsg.contains(Constant.EXCEPTION_KEY)) {
                 System.err.println(errMsg)
             } else {
                 EngineConfig engineConfig = new EngineConfig()

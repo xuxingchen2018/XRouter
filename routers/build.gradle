@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.mrcd.xrouter.engine'
 
-def config=rootProject.ext
+def config = rootProject.ext
 
 android {
     compileSdkVersion config.compileSdkVersion
