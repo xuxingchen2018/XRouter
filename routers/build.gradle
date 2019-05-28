@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.mrcd.xrouter.engine'
+//apply plugin: 'com.mrcd.xrouter.engine'
 
 def config = rootProject.ext
 
@@ -25,9 +25,9 @@ android {
 
 }
 
-XRouterConfig {
-    routerPath = "com.xxc.xrouter.routers"
-}
+//XRouterConfig {
+//    routerPath = "com.xxc.xrouter.routers"
+//}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

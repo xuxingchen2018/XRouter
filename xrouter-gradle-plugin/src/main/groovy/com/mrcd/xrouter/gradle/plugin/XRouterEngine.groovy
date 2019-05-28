@@ -14,9 +14,6 @@ class XRouterEngine implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-        project.rootProject.gradle.beforeProject {
-
-        }
         Task makeRouters = project.task("makeRouters")
         makeRouters.group = Constant.XROUTER_NAME
         makeRouters.description = Constant.MAKE_ROUTERS_TASK_DESCRIPTION

@@ -46,6 +46,10 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
+def mavenRemote = System.getenv("MAVEN_REMOTE_URL")
+def mavenLocal = System.getenv("MAVEN_LOCAL_URL")
+def RELEASE_REPOSITORY_URL = mavenLocal
+def SNAPSHOT_REPOSITORY_URL = mavenLocal
 
 uploadArchives {
     repositories {

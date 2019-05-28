@@ -32,20 +32,20 @@ class CoreWork implements IEngineWork {
         DevelopConfig config
         ExecResult execResult
 
-        StringBuffer buffer = new String("gradlew")
+        String string = new String("gradlew")
         //获取主工程目录下的APP工程
         project.rootProject.childProjects.values().each { childProject ->
             if (GradleUtils.isAndroidProject(childProject)) {
                 projects.add(childProject.name)
                 String taskName = String.format(taskNameFormat, childProject.name)
                 args.add(taskName)
-                buffer.append(" " + taskName)
+                string = string.concat(" " + taskName)
                 println "Task >>>:  " + taskName
 
             }
         }
-        args.add(" -continue")
-        buffer.append(" -continue")
+        args.add("--continue")
+        string = string.concat(" --continue")
 
         //收集开发者的配置
         task.doFirst {
@@ -59,10 +59,10 @@ class CoreWork implements IEngineWork {
                 }
             }
 
+            println string
             execResult = project.rootProject.exec(new Action<ExecSpec>() {
                 @Override
                 void execute(ExecSpec execSpec) {
-                    println buffer.toString()
                     execSpec.executable = "gradlew"
                     execSpec.args = args
                     execSpec.errorOutput = output
