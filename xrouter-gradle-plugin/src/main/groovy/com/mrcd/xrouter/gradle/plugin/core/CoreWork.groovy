@@ -24,7 +24,6 @@ class CoreWork implements IEngineWork {
 
     @Override
     void startEngine(Project project, Task task, File rootDir) {
-        String taskNameFormat = ":%s:assemble"
         List<String> args = new ArrayList<>()
         List<String> projects = new ArrayList<>()
         List<ClassPath> cachePaths = new ArrayList<>()
@@ -37,18 +36,12 @@ class CoreWork implements IEngineWork {
         project.rootProject.childProjects.values().each { childProject ->
             if (GradleUtils.isAndroidProject(childProject)) {
                 projects.add(childProject.name)
-                String taskName = String.format(taskNameFormat, childProject.name)
-                args.add(taskName)
-                string = string.concat(" " + taskName)
-                println "Task >>>:  " + taskName
-
             }
         }
-        args.add("--continue")
-        string = string.concat(" --continue")
 
         //收集开发者的配置
         task.doFirst {
+            String taskNameFormat = ":%s:assemble"
             config = project.XRouterConfig
             projects.removeAll(config.excludeProject)
             projects.each { itemProject ->
@@ -57,7 +50,13 @@ class CoreWork implements IEngineWork {
                     println "Read cache json >>> " + jsonFile
                     cachePaths.addAll(JsonIO.readJsonFile(jsonFile))
                 }
+                String taskName = String.format(taskNameFormat, itemProject)
+                args.add(taskName)
+                string = string.concat(" " + taskName)
+                println "Task >>>:  " + taskName
             }
+            args.add("--continue")
+            string = string.concat(" --continue")
 
             println string
             execResult = project.rootProject.exec(new Action<ExecSpec>() {
