@@ -49,3 +49,14 @@
 5.  运行gradlew
     :routers:makeRouters或者再AS右侧gradle任务导航栏中找到对应的task双击运行即可
 6.  task运行完成后，在routers目录下会多出com.mrcd.xrouter.routers目录，在目录下即都是生成的路由表
+
+### 混淆Proguard
+
+1.  如下配置
+    ```
+    -keepclasseswithmembernames class * {
+        @com.mrcd.xrouter.annotation.XParam <fields>;
+    }
+    ```  
+
+    
