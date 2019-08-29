@@ -38,7 +38,7 @@ public class XRouterCoder {
     }
 
     private void generateConstructor() {
-        Modifier[] modifiers = new Modifier[]{Modifier.PUBLIC, Modifier.STATIC};
+        Modifier[] modifiers = new Modifier[]{Modifier.PRIVATE, Modifier.STATIC};
         FieldSpec fieldSpec = FieldSpec.builder(mSelfName, "INSTANCE", modifiers)
                                        .initializer("new $T()", mSelfName)
                                        .build();

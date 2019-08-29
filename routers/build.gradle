@@ -1,5 +1,12 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.mrcd.xrouter.engine'
+boolean isPublishPlugin = rootProject.publishPlugin
+println "publish >> " + isPublishPlugin
+if (!isPublishPlugin) {
+    apply plugin: 'com.mrcd.xrouter.engine'
+    XRouterConfig {
+        routerPath = "com.xxc.xrouter.routers"
+    }
+}
 
 def config = rootProject.ext
 
@@ -22,12 +29,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 }
-
-//XRouterConfig {
-//    routerPath = "com.xxc.xrouter.routers"
-//}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

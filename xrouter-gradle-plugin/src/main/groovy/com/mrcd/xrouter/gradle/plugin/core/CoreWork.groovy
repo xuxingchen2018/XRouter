@@ -20,6 +20,7 @@ import org.gradle.process.ExecSpec
  * 运行task任务
  * 动态生成代码，先生成路由表，后生成XRouter
  */
+@Deprecated
 class CoreWork implements IEngineWork {
 
     @Override
@@ -31,7 +32,7 @@ class CoreWork implements IEngineWork {
         DevelopConfig config
         ExecResult execResult
 
-        String string = new String("gradlew")
+        String string = new String("./gradlew")
         //获取主工程目录下的APP工程
         project.rootProject.childProjects.values().each { childProject ->
             if (GradleUtils.isAndroidProject(childProject)) {

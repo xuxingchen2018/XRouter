@@ -5,7 +5,7 @@ import com.xxc.xrouter.routers.DemoActivityRouter;
 import com.xxc.xrouter.routers.MainSecondActivityRouter;
 
 public final class XRouter {
-  public static XRouter INSTANCE = new XRouter();
+  private static XRouter INSTANCE = new XRouter();
 
   private XRouter() {
   }

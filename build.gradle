@@ -5,6 +5,9 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+        maven {
+            url System.getenv("MAVEN_LOCAL_URL")
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
@@ -12,6 +15,9 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.novoda:bintray-release:0.9.1'
+        if (!publishPlugin) {
+            classpath 'com.mrcd:xrouter-gradle-plugin'
+        }
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

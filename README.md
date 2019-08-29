@@ -46,9 +46,14 @@
                 targetCompatibility = '1.8'
             }
     ```
-5.  运行gradlew
-    :routers:makeRouters或者再AS右侧gradle任务导航栏中找到对应的task双击运行即可
-6.  task运行完成后，在routers目录下会多出com.mrcd.xrouter.routers目录，在目录下即都是生成的路由表
+5.  点击Build -> MakeProject 构建生成路由配置文件
+6.  运行gradlew
+    :routers:makeRouters或者在AS右侧gradle任务导航栏中找到对应的task双击运行即可
+7.  task运行完成后，在routers目录下会多出com.mrcd.xrouter.routers目录，在目录下即都是生成的路由表
+
+### 已知问题    
+
+1.  在library下，如果只有一个Activity，将Activity的注解移除后，路由配置文件无法及时更新，需手动将文件内容清空
 
 ### 混淆Proguard
 
