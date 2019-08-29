@@ -14,7 +14,7 @@
 1.  创建一个用于管理路由的库（routers）
 2.  根目录下的build.gradle文件中添加classpath，并且在routers库的build.gradle文件中添加插件
     ```
-    classpath "com.mrcd:xrouter-gradle-plugin:1.0.5"
+    classpath "com.mrcd:xrouter-gradle-plugin:1.0.12"
     
     apply plugin: 'com.mrcd.xrouter.engine'
     ```
