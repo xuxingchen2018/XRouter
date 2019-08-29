@@ -50,8 +50,8 @@
 6.  运行gradlew
     :routers:make-Debug-routers或者在AS右侧gradle任务导航栏中找到对应的task双击运行即可
 7.  task运行完成后，在routers目录下会多出com.mrcd.xrouter.routers目录，在目录下即都是生成的路由表
-8.  如果不做配置，插件会自动生成两个task，分别对应debug和release，开发者可通过XRouterConfig配置，
-    目前config支持属性有：excludeProject，buildTypes，routerPath，详情可查看源码
+8.  如果不做配置，插件会自动生成两个task，分别对应make-Debug-routers和make-Release-routers，
+    开发者可通过XRouterConfig配置，目前config支持属性有：excludeProject，buildTypes，routerPath，详情可查看源码
 
 ### 已知问题    
 
