@@ -20,7 +20,7 @@ publish {
     userOrg = System.getenv("bintray_user")
     groupId = GROUP
     artifactId = POM_ARTIFACT_ID
-    publishVersion = UPLOAD_VERSION_NAME
+    publishVersion = ANNOTATION_VERSION_NAME
     desc = libraryDescription
     website = siteUrl
     bintrayUser = System.getenv("bintray_user")

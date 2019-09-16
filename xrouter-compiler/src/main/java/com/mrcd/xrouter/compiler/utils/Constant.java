@@ -28,7 +28,7 @@ public class Constant {
     /**
      * 生成的数据注入类的后缀
      */
-    public static final String DATA_BINDER_SUFFIX = "DataBinder";
+    public static final String DATA_BINDER_SUFFIX = "$$DataBinder";
 
     /**
      * module名的key，根据key可以取到module名

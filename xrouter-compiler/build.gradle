@@ -17,7 +17,7 @@ dependencies {
     implementation 'com.google.auto.service:auto-service:1.0-rc3'
 //    implementation 'com.squareup:javapoet:1.9.0'
 //    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation "com.mrcd:xrouter-annotation:${UPLOAD_VERSION_NAME}"
+    implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
 }
 
 tasks.withType(JavaCompile) {
@@ -33,7 +33,7 @@ publish {
     userOrg = System.getenv("bintray_user")
     groupId = GROUP
     artifactId = POM_ARTIFACT_ID
-    publishVersion = UPLOAD_VERSION_NAME
+    publishVersion = COMPILER_VERSION_NAME
     desc = libraryDescription
     website = siteUrl
     bintrayUser = System.getenv("bintray_user")

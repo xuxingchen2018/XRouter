@@ -35,7 +35,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation "com.mrcd:xrouter-annotation:${VERSION_NAME}"
-    annotationProcessor "com.mrcd:xrouter-compiler:${VERSION_NAME}"
+    implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
+    annotationProcessor "com.mrcd:xrouter-compiler:${COMPILER_VERSION_NAME}"
     implementation project(path: ':routers')
 }

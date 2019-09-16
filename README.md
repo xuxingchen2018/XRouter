@@ -20,12 +20,12 @@
     ```
 3.  在routers库的build.gradle文件中添加依赖 
     ```
-    api "com.mrcd:xrouter-api:${VERSION_NAME}"
+    api "com.mrcd:xrouter-api:${API_VERSION_NAME}"
     ```
 4.  将在需要使用路由功能的库中添加routers库的依赖，如果需要注解可另外添加依赖 
     ```
-        implementation "com.mrcd:xrouter-annotation:${VERSION_NAME}"
-        annotationProcessor "com.mrcd:xrouter-compiler:${VERSION_NAME}"
+        implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
+        annotationProcessor "com.mrcd:xrouter-compiler:${COMPILER_VERSION_NAME}"
     ```
     注意，在添加了annotationProcessor注解处理后，请务必在build.gradle文件中的defaultConfig节点下添加如下配置
     
@@ -61,9 +61,17 @@
 
 1.  如下配置
     ```
+    -keep class com.mrcd.xrouter.annotation.** { *; }
     -keepclasseswithmembernames class * {
         @com.mrcd.xrouter.annotation.XParam <fields>;
     }
+    -keepclasseswithmembernames class * {
+        @com.mrcd.xrouter.annotation.Parcelable <fields>;
+    }
+    -keepclasseswithmembernames class * {
+        @com.mrcd.xrouter.annotation.Serializable <fields>;
+    }
+    -keep class **$$DataBinder { *; }
     ```  
 
     
