@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
  */
 public class DataBinder {
 
-    private static final String BINDER_SUFFIX = "DataBinder";
+    private static final String BINDER_SUFFIX = "$$DataBinder";
 
     /**
      * 缓存数量为16
