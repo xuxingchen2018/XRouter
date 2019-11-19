@@ -17,6 +17,26 @@ public class Constant {
     public static final String CONTEXT_PKG = "android.content";
 
     /**
+     * fragment 包名
+     */
+    public static final String FRAGMENT_PKG = "android.app";
+
+    /**
+     * support fragment 包名
+     */
+    public static final String SUPPORT_FRAGMENT_PKG = "android.support.v4.app";
+
+    /**
+     * AndroidX fragment 包名
+     */
+    public static final String ANDROIDX_FRAGMENT_PKG = "androidx.fragment.app";
+
+    /**
+     * fragment 类名
+     */
+    public static final String FRAGMENT_NAME = "Fragment";
+
+    /**
      * context类名
      */
     public static final String CONTEXT_NAME = "Context";

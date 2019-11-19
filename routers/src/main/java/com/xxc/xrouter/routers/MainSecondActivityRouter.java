@@ -1,6 +1,7 @@
 package com.xxc.xrouter.routers;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import com.mrcd.xrouter.core.IntentArgs;
 import com.mrcd.xrouter.core.IntentInterceptor;
 import com.mrcd.xrouter.core.IntentWrapper;
@@ -39,6 +40,14 @@ public final class MainSecondActivityRouter {
   }
 
   public final void launch(Context context) {
-    mArgs.requestCode(mRequestCode).wrap().intercept(mInterceptor).launch(context, "com.mrcd.xrouter.demo.MainSecondActivity");
+    mArgs.requestCode(mRequestCode).wrap(context).intercept(mInterceptor).launch("com.mrcd.xrouter.demo.MainSecondActivity");
+  }
+
+  public final void launch(Fragment fragment) {
+    mArgs.requestCode(mRequestCode).wrap(fragment).intercept(mInterceptor).launch("com.mrcd.xrouter.demo.MainSecondActivity");
+  }
+
+  public final void launch(android.app.Fragment fragment) {
+    mArgs.requestCode(mRequestCode).wrap(fragment).intercept(mInterceptor).launch("com.mrcd.xrouter.demo.MainSecondActivity");
   }
 }

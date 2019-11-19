@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-boolean isPublishPlugin = rootProject.publishPlugin
+boolean isPublishPlugin = rootProject.publishPlugin.toBoolean()
 println "publish >> " + isPublishPlugin
 if (!isPublishPlugin) {
     apply plugin: 'com.mrcd.xrouter.engine'
@@ -39,6 +39,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    api "com.mrcd:xrouter-api:${API_VERSION_NAME}"
+    if (isPublishPlugin) {
+        api "com.mrcd:xrouter-api:${API_VERSION_NAME}"
+    } else {
+        api project(":xrouter-api")
+    }
 
 }

@@ -3,19 +3,31 @@ package com.mrcd.xrouter.demo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import com.mrcd.xrouter.annotation.XParam;
 import com.mrcd.xrouter.annotation.XPath;
+import com.mrcd.xrouter.core.IntentWrapper;
 
 @XPath
 public class MainSecondActivity extends AppCompatActivity {
 
+    public static final String TAG = "MainSecondActivity";
+
     @XParam
-    int mAge;
+    public int mAge;
     @XParam
-    String name;
+    public String name;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        IntentWrapper.bindData(this, MainSecondActivity.class);
+        Log.d(TAG, "onCreate: " + mAge + "   " + name);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        IntentWrapper.release(this, MainSecondActivity.class);
     }
 }

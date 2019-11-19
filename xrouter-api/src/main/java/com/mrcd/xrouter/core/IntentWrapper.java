@@ -1,7 +1,9 @@
 package com.mrcd.xrouter.core;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.support.v4.app.Fragment;
 import com.mrcd.xrouter.builder.IValueBuilder;
 import com.mrcd.xrouter.builder.impl.BooleanBuilder;
 import com.mrcd.xrouter.builder.impl.ByteBuilder;
@@ -14,7 +16,9 @@ import com.mrcd.xrouter.builder.impl.LongBuilder;
 import com.mrcd.xrouter.builder.impl.ParcelableBuilder;
 import com.mrcd.xrouter.builder.impl.SerializableBuilder;
 import com.mrcd.xrouter.builder.impl.ShortBuilder;
-import com.mrcd.xrouter.core.IntentArgs.Launcher;
+import com.mrcd.xrouter.core.launcher.ContextLauncher;
+import com.mrcd.xrouter.core.launcher.FragmentLauncher;
+import com.mrcd.xrouter.core.launcher.FragmentSupportLauncher;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,8 +60,16 @@ public class IntentWrapper {
         return new IntentArgs();
     }
 
-    public Launcher wrap() {
-        return new IntentArgs().wrap();
+    public ContextLauncher wrap(Context context) {
+        return new IntentArgs().wrap(context);
+    }
+
+    public FragmentSupportLauncher wrap(Fragment fragment) {
+        return new IntentArgs().wrap(fragment);
+    }
+
+    public FragmentLauncher wrap(android.app.Fragment fragment) {
+        return new IntentArgs().wrap(fragment);
     }
 
     void setLargeValues(String key, Object value) {

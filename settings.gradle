@@ -1,10 +1,10 @@
 include ':app', ':xrouter-api', ':routers', ':demo', ':xrouter-annotation', ':xrouter-compiler'
-boolean isPublishPlugin = publishPlugin
+boolean isPublishPlugin = publishPlugin.toBoolean()
 println "setting publish plugin >> " + isPublishPlugin
 if (isPublishPlugin) {
     //发布时以include形式
     include ':xrouter-gradle-plugin'
 } else {
-    //调试时以includeBuild形式
+    //调试时，利用复合构建，以includeBuild形式
     includeBuild 'xrouter-gradle-plugin'
 }

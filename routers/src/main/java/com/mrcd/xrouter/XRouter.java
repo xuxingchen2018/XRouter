@@ -3,6 +3,7 @@ package com.mrcd.xrouter;
 import com.xxc.xrouter.routers.AppMainRouter;
 import com.xxc.xrouter.routers.DemoActivityRouter;
 import com.xxc.xrouter.routers.MainSecondActivityRouter;
+import com.xxc.xrouter.routers.MainThirdActivityRouter;
 
 public final class XRouter {
   private static XRouter INSTANCE = new XRouter();
@@ -12,6 +13,10 @@ public final class XRouter {
 
   public static XRouter getInstance() {
     return INSTANCE;
+  }
+
+  public MainThirdActivityRouter mainThirdActivity() {
+    return new MainThirdActivityRouter();
   }
 
   public MainSecondActivityRouter mainSecondActivity() {

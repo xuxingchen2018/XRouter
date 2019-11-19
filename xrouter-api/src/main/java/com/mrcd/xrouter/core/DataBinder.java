@@ -21,7 +21,7 @@ public class DataBinder {
     }
 
     public static void invokeBindDataMethod(Object target, Class targetClass) {
-        Class[] parameterTypes = {target.getClass(), IntentWrapper.class};
+        Class[] parameterTypes = {targetClass, IntentWrapper.class};
         Object[] params = new Object[]{target, IntentWrapper.getInstance()};
         invokeMethod(target, targetClass, "bindData", parameterTypes, params);
     }
@@ -31,7 +31,7 @@ public class DataBinder {
     }
 
     public static void invokeReleaseDataMethod(Object target, Class targetClass) {
-        Class[] parameterTypes = {target.getClass(), IntentWrapper.class};
+        Class[] parameterTypes = {targetClass, IntentWrapper.class};
         Object[] params = {target, IntentWrapper.getInstance()};
         invokeMethod(target, targetClass, "releaseData", parameterTypes, params);
     }

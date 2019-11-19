@@ -1,6 +1,7 @@
 package com.mrcd.xrouter.gradle.plugin.core.coder;
 
 import com.mrcd.xrouter.gradle.plugin.bean.ClassPath;
+import com.mrcd.xrouter.gradle.plugin.configs.DevelopConfig;
 import com.mrcd.xrouter.gradle.plugin.core.EngineConfig;
 import com.mrcd.xrouter.gradle.plugin.utils.Constant;
 import com.mrcd.xrouter.gradle.plugin.utils.JsonIO;
@@ -35,7 +36,9 @@ public class Coder {
      * @param config 配置项
      */
     public static void startCoding(File rootDir, EngineConfig config) {
-        sRoutersPkgName = config.getDevelopConfig().getRouterPath();
+        DevelopConfig developConfig = config.getDevelopConfig();
+
+        sRoutersPkgName = developConfig.getRouterPath();
         Constant.generateJavaHomeDir(rootDir, config.getProjectName());
         List<ClassPath> currentPaths = new ArrayList<>();
         List<RouterCoder> routerCoders = new ArrayList<>();
@@ -45,7 +48,7 @@ public class Coder {
             if (file.exists()) {
                 List<ClassPath> paths = JsonIO.readJsonFile(file);
                 for (ClassPath path : paths) {
-                    RouterCoder coder = new RouterCoder(path);
+                    RouterCoder coder = new RouterCoder(path, developConfig.getSupportAndroidX());
                     if (currentPaths.contains(path)) {
                         throw new RuntimeException(String.format(REPEATED_PATH, path.getRouterName()));
                     }

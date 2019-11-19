@@ -19,6 +19,8 @@ class DevelopConfig {
      */
     String routerPath = "com.mrcd.xrouter.routers"
 
+    boolean supportAndroidX = false
+
     DevelopConfig() {
     }
 
@@ -44,5 +46,13 @@ class DevelopConfig {
 
     void setBuildTypes(List<String> buildTypes) {
         this.buildTypes = buildTypes
+    }
+
+    boolean getSupportAndroidX() {
+        return supportAndroidX
+    }
+
+    void setSupportAndroidX(boolean supportAndroidX) {
+        this.supportAndroidX = supportAndroidX
     }
 }

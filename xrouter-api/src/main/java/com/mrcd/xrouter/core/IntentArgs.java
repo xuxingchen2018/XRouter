@@ -1,12 +1,14 @@
 package com.mrcd.xrouter.core;
 
-import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import com.mrcd.xrouter.builder.IValueBuilder;
+import com.mrcd.xrouter.core.launcher.ContextLauncher;
+import com.mrcd.xrouter.core.launcher.FragmentLauncher;
+import com.mrcd.xrouter.core.launcher.FragmentSupportLauncher;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,7 +109,7 @@ public class IntentArgs {
         return this;
     }
 
-    public Launcher wrap() {
+    private Intent setupIntent() {
         Intent intent = new Intent();
         if (mParams.size() > 0) {
             Set<String> keySet = mParams.keySet();
@@ -121,57 +123,22 @@ public class IntentArgs {
                 }
             }
         }
-        return new Launcher(intent, mRequestCode);
+        return intent;
     }
 
-    /**
-     * intent启动器
-     */
-    public class Launcher {
+    public ContextLauncher wrap(Context context) {
+        Intent intent = setupIntent();
+        return new ContextLauncher(context, intent, mRequestCode);
+    }
 
-        private Intent mIntent;
-        private int mRequestCode;
-        private IntentInterceptor mInterceptor;
+    public FragmentSupportLauncher wrap(Fragment fragment) {
+        Intent intent = setupIntent();
+        return new FragmentSupportLauncher(fragment, intent, mRequestCode);
+    }
 
-        public Launcher(Intent intent, int requestCode) {
-            mIntent = intent;
-            mRequestCode = requestCode;
-        }
-
-        public Launcher intercept(IntentInterceptor interceptor) {
-            mInterceptor = interceptor;
-            return this;
-        }
-
-        public void launch(Context context, Class target) {
-            mIntent.setComponent(new ComponentName(context, target));
-            launch(context);
-        }
-
-        public void launch(Context context, String target) {
-            ComponentName name = new ComponentName(context.getPackageName(), target);
-            mIntent.setComponent(name);
-            launch(context);
-        }
-
-        private void launch(Context context) {
-            if (mInterceptor != null && mInterceptor.intercept(mIntent)) {
-                return;
-            }
-            if (!(context instanceof Activity)) {
-                mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            try {
-                if (-1 != mRequestCode && context instanceof Activity) {
-                    ((Activity) context).startActivityForResult(mIntent, mRequestCode);
-                } else {
-                    context.startActivity(mIntent);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
+    public FragmentLauncher wrap(android.app.Fragment fragment) {
+        Intent intent = setupIntent();
+        return new FragmentLauncher(fragment, intent, mRequestCode);
     }
 
     /**

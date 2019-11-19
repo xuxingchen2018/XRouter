@@ -7,7 +7,6 @@ import com.mrcd.xrouter.annotation.Parcelable;
 import com.mrcd.xrouter.annotation.Serializable;
 import com.mrcd.xrouter.annotation.XParam;
 import com.mrcd.xrouter.annotation.XPath;
-import com.mrcd.xrouter.core.IntentWrapper;
 import com.mrcd.xrouter.demo.bean.Animal;
 import com.mrcd.xrouter.demo.bean.Dog;
 import com.mrcd.xrouter.demo.bean.User;
@@ -55,11 +54,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        XRouter.getInstance()
-               .demoActivity()
-               .setFrom("MainActivity")
-               .setCurrentPage("MainActivity")
-               .setRequestCode(1024)
-               .launch(this);
+        findViewById(R.id.hello).setOnClickListener(v ->
+            XRouter.getInstance()
+            .mainThirdActivity()
+            .setAge(18)
+            .setName("android")
+            .setGreet("hello")
+            .setRequestCode(1024)
+            .launch(MainActivity.this));
+
     }
 }
