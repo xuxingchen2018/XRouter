@@ -14,7 +14,7 @@
 1.  创建一个用于管理路由的库（routers）
 2.  根目录下的build.gradle文件中添加classpath，并且在routers库的build.gradle文件中添加插件
     ```
-    classpath "com.mrcd:xrouter-gradle-plugin:1.0.12"
+    classpath "com.mrcd:xrouter-gradle-plugin:1.1.2"
     
     apply plugin: 'com.mrcd.xrouter.engine'
     ```
@@ -53,10 +53,19 @@
 8.  如果不做配置，插件会自动生成两个task，分别对应make-Debug-routers和make-Release-routers，
     开发者可通过XRouterConfig配置，目前config支持属性有：excludeProject，buildTypes，routerPath，详情可查看源码
 
-### 已知问题    
+### 关于继承    
 
-1.  在library下，如果只有一个Activity，将Activity的注解移除后，路由配置文件无法及时更新，需手动将文件内容清空
-
+1.  XRouter在处理Activity继承情况下，要求父类的数据访问权限设置为public，
+    并且在调用绑定数据方法时，需要声明当前Activity的class类型，如下所示： 
+        
+    ```
+    IntentWrapper.bindData(this, MainActivity.class);
+    ```    
+    在onDestroy时也需要声明为当前Activity的类型    
+    ```
+    IntentWrapper.release(this, MainActivity.class);
+    ```    
+    
 ### 混淆Proguard
 
 1.  如下配置
