@@ -1,11 +1,10 @@
 apply plugin: 'com.android.library'
 boolean isPublishPlugin = rootProject.publishPlugin.toBoolean()
 println "publish >> " + isPublishPlugin
-if (!isPublishPlugin) {
-    apply plugin: 'com.mrcd.xrouter.engine'
-    XRouterConfig {
-        routerPath = "com.xxc.xrouter.routers"
-    }
+
+apply plugin: 'com.mrcd.xrouter.engine'
+XRouterConfig {
+    routerPath = "com.xxc.xrouter.routers"
 }
 
 def config = rootProject.ext
