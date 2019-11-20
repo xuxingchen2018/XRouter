@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 
+boolean isPublishPlugin = rootProject.publishPlugin.toBoolean()
+
 def config = rootProject.ext
 
 android {
@@ -42,8 +44,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
-    annotationProcessor "com.mrcd:xrouter-compiler:${COMPILER_VERSION_NAME}"
+    if (isPublishPlugin) {
+        implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
+        annotationProcessor "com.mrcd:xrouter-compiler:${COMPILER_VERSION_NAME}"
+    } else {
+        implementation project(":xrouter-annotation")
+        annotationProcessor project(":xrouter-compiler")
+    }
+
 
     implementation project(path: ':routers')
 }

@@ -105,6 +105,7 @@ public class RouterProcess extends AbstractProcessor {
         super.init(processingEnvironment);
         mFiler = processingEnvironment.getFiler();
         mElementUtils = processingEnvironment.getElementUtils();
+        initClassCacheFile();
     }
 
     @Override
@@ -136,7 +137,6 @@ public class RouterProcess extends AbstractProcessor {
         Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(XPath.class);
         if (null != elements && elements.size() > 0) {
             System.err.println("------>>start compile");
-            initClassCacheFile();
             initClassDeclaration();
             writeCacheFile(elements);
             return true;
@@ -163,9 +163,11 @@ public class RouterProcess extends AbstractProcessor {
         mCacheFile = new File(dir, CLASS_CACHE_FILE);
         System.err.println("CacheRouterFile: " + mCacheFile);
         try {
-            if (!mCacheFile.exists()) {
-                mCacheFile.createNewFile();
+            if (mCacheFile.exists()) {
+                mCacheFile.delete();
             }
+            //创建新文件
+            mCacheFile.createNewFile();
         } catch (Exception e) {
             e.printStackTrace();
         }

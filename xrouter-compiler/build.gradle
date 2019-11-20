@@ -1,6 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'com.novoda.bintray-release'
 
+boolean isPublishPlugin = rootProject.publishPlugin.toBoolean()
+
 //repositories {
 //    google()
 //    jcenter()
@@ -17,7 +19,11 @@ dependencies {
     implementation 'com.google.auto.service:auto-service:1.0-rc3'
 //    implementation 'com.squareup:javapoet:1.9.0'
 //    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
+    if (isPublishPlugin) {
+        implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
+    } else {
+        implementation project(":xrouter-annotation")
+    }
 }
 
 tasks.withType(JavaCompile) {
