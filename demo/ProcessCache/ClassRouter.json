@@ -1,1 +1,1 @@
-[{"path":"DemoActivity","simpleName":"DemoActivity","className":"com.mrcd.demo.DemoActivity","params":[]}]
+[{"path":"DemoActivity","simpleName":"DemoActivity","className":"com.mrcd.demo.DemoActivity","params":[{"mParamName":"mFrom","mFieldName":"mFrom","mType":"java.lang.String","isHuge":false},{"mParamName":"mCurrentPage","mFieldName":"mCurrentPage","mType":"java.lang.String","isHuge":false}]}]
