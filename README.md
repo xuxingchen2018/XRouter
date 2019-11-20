@@ -1,4 +1,6 @@
 # Android XRouter
+![](https://img.shields.io/bintray/v/sevennight2012/maven/xrouter-api)    
+
 利用APT实现的一个轻量级路由框架，注意本库基于Java1.8，所以需要配置compileOptions
 
 ### 功能实现：
