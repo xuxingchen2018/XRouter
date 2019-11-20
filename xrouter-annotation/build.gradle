@@ -1,5 +1,4 @@
 apply plugin: 'java'
-apply plugin: 'com.novoda.bintray-release'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -7,23 +6,5 @@ dependencies {
 
 sourceCompatibility = "8"
 targetCompatibility = "8"
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-tasks.withType(Javadoc) {
-//    options.addStringOption('Xdoclint:none', '-quiet')
-    options.addStringOption('encoding', 'UTF-8')
-    options.addStringOption('charSet', 'UTF-8')
-}
 
-publish {
-    userOrg = System.getenv("bintray_user")
-    groupId = GROUP
-    artifactId = POM_ARTIFACT_ID
-    publishVersion = ANNOTATION_VERSION_NAME
-    desc = libraryDescription
-    website = siteUrl
-    bintrayUser = System.getenv("bintray_user")
-    bintrayKey = System.getenv("bintray_apiKey")
-    dryRun = false
-}
+apply from: "https://raw.githubusercontent.com/SevenNight2012/MyScript/master/publish/PublishConfig.gradle"

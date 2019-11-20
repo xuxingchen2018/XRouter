@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
 
 def config = rootProject.ext
 
@@ -29,15 +28,6 @@ android {
 
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-tasks.withType(Javadoc) {
-//    options.addStringOption('Xdoclint:none', '-quiet')
-    options.addStringOption('encoding', 'UTF-8')
-    options.addStringOption('charSet', 'UTF-8')
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -47,16 +37,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
-//apply from: '../install.gradle'
-//apply from: '../bintray.gradle'
-publish {
-    userOrg = System.getenv("bintray_user")
-    groupId = GROUP
-    artifactId = POM_ARTIFACT_ID
-    publishVersion = API_VERSION_NAME
-    desc = libraryDescription
-    website = siteUrl
-    bintrayUser = System.getenv("bintray_user")
-    bintrayKey = System.getenv("bintray_apiKey")
-    dryRun = false
-}
+apply from: "https://raw.githubusercontent.com/SevenNight2012/MyScript/master/publish/PublishConfig.gradle"

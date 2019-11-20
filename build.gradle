@@ -12,9 +12,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
 //        classpath 'com.mrcd:xrouter-gradle-plugin:1.0.5'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-        classpath 'com.novoda:bintray-release:0.9.1'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         if (!publishPlugin.toBoolean()) {
             classpath 'com.mrcd:xrouter-gradle-plugin'
         }
