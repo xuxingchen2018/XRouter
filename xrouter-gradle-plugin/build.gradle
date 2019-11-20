@@ -4,6 +4,10 @@ buildscript {
         jcenter()
         mavenCentral()
     }
+    dependencies {
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+    }
 }
 
 apply plugin: 'java-gradle-plugin'
@@ -20,9 +24,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compile gradleApi() //gradle sdk
     compile localGroovy() //groovy sdk
-//    依赖移除，直接加源码
-//    implementation 'com.squareup:javapoet:1.9.0'
-//    implementation 'com.google.code.gson:gson:2.8.5'
+    //依赖移除，直接加源码
+    //implementation 'com.squareup:javapoet:1.9.0'
+    //implementation 'com.google.code.gson:gson:2.8.5'
     compile 'com.android.tools.build:gradle:3.1.4'
 }
 
