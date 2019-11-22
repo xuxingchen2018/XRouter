@@ -21,13 +21,6 @@ public class MainSecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        IntentWrapper.bindData(this, MainSecondActivity.class);
         Log.d(TAG, "onCreate: " + mAge + "   " + name);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        IntentWrapper.release(this, MainSecondActivity.class);
     }
 }

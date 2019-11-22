@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: "com.mrcd.xrouter.auto"
 
 boolean isPublishPlugin = rootProject.publishPlugin.toBoolean()
 
@@ -46,4 +47,5 @@ dependencies {
     }
 
     implementation project(path: ':routers')
+    implementation project(path: ':demo')
 }

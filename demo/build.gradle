@@ -52,6 +52,5 @@ dependencies {
         annotationProcessor project(":xrouter-compiler")
     }
 
-
     implementation project(path: ':routers')
 }
