@@ -42,7 +42,7 @@ class AutoWriteTransform extends Transform {
         DataBinderWriter dataWriter = new DataBinderWriter(mProject)
 
         def outputProvider = transformInvocation.outputProvider
-        //TODO 优化
+        //提前遍历，插入所有的ClassPath，否则会报class not found
         transformInvocation.inputs.each { TransformInput input ->
             input.directoryInputs.each { DirectoryInput directoryInput ->
                 dataWriter.appendClassPath(directoryInput.file.absolutePath, directoryInput.name.contains(":xrouter-api"))
@@ -55,7 +55,7 @@ class AutoWriteTransform extends Transform {
             //directory input
             input.directoryInputs.each { DirectoryInput directoryInput ->
                 //在此注入代码
-                dataWriter.injectClass(directoryInput.file, mProject)
+                dataWriter.processDirectoryClass(directoryInput.file)
                 def dest = outputProvider.getContentLocation(directoryInput.name,
                         directoryInput.contentTypes, directoryInput.scopes,
                         Format.DIRECTORY)
@@ -71,7 +71,7 @@ class AutoWriteTransform extends Transform {
                 }
                 File dest = outputProvider.getContentLocation(jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR)
                 if (dataWriter.shouldScanJar(jarInput, mProject)) {
-                    dataWriter.injectJar(jarInput.file, dest)
+                    dataWriter.processJarClass(jarInput.file)
                 }
                 FileUtils.copyFile(jarInput.file, dest)
             }

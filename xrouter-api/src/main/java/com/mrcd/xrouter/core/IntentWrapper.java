@@ -217,17 +217,17 @@ public class IntentWrapper {
         mLargeValues.clear();
     }
 
+    /**
+     * 绑定数据的方法，外部直接传入this即可
+     * 在存在继承关系时，要求父类的数据访问权限为public，否则无法绑定父类的数据
+     *
+     * @param target 需要注入的对象
+     */
     public static void bindData(Object target) {
         bindData(target, target.getClass());
     }
 
-    /**
-     * 此方法专门用于继承关系时强制指定匹配的class类型
-     * 注意，此处的thisClass不能通过getClass()方法获取，否则在父类中无效
-     *
-     * @param target    需要注入的对象
-     * @param thisClass class类,尽量通过 XXX.class的方法获取
-     */
+    @Deprecated
     public static void bindData(Object target, Class thisClass) {
         if (null == target || Object.class == thisClass) {
             return;
@@ -239,6 +239,7 @@ public class IntentWrapper {
         release(target, target.getClass());
     }
 
+    @Deprecated
     public static void release(Object target, Class thisClass) {
         if (null == target || Object.class == thisClass) {
             return;
