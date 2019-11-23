@@ -40,6 +40,7 @@ class AutoWriteTransform extends Transform {
     @Override
     void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
         DataBinderWriter dataWriter = new DataBinderWriter(mProject)
+        DataBinderWriter.LOGS.clear()
 
         def outputProvider = transformInvocation.outputProvider
         //提前遍历，插入所有的ClassPath，否则会报class not found
@@ -76,5 +77,9 @@ class AutoWriteTransform extends Transform {
                 FileUtils.copyFile(jarInput.file, dest)
             }
         }
+        DataBinderWriter.LOGS.each { String log ->
+            System.err.println(log)
+        }
+        System.err.println("\n共处理===>> ${DataBinderWriter.LOGS.size()} 条路由")
     }
 }

@@ -26,7 +26,7 @@ class DirectoryInjector extends BaseCodeInjector {
 
                     ctClass.writeFile(dir.absolutePath)
                     ctClass.detach()
-                    System.err.println("class >> $ctClass.name  重写 create>$mOverrideCreate  重写 destroy>$mOverrideDestroy")
+                    print(ctClass)
                 }
             }
         }

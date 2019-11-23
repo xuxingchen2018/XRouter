@@ -11,6 +11,7 @@ class DataBinderWriter {
 
     public static final String BUNDLE_PATH = "android.os.Bundle"
 
+    public static final List<String> LOGS = new ArrayList<>()
     private static final ClassPool POOL = ClassPool.getDefault()
     private static final String INTENT_WRAPPER_PATH = "com.mrcd.xrouter.core.IntentWrapper"
 

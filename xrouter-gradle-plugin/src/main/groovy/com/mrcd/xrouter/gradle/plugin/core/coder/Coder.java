@@ -1,5 +1,6 @@
 package com.mrcd.xrouter.gradle.plugin.core.coder;
 
+import com.mrcd.xrouter.gradle.auto.transform.DataBinderWriter;
 import com.mrcd.xrouter.gradle.plugin.bean.ClassPath;
 import com.mrcd.xrouter.gradle.plugin.configs.DevelopConfig;
 import com.mrcd.xrouter.gradle.plugin.core.EngineConfig;
@@ -63,6 +64,7 @@ public class Coder {
         for (RouterCoder coder : routerCoders) {
             coder.build();
         }
+        System.err.println("\n共处理===>> " + routerCoders.size() + " 条路由");
         xRouterCoder.build();
         destroy(config.getCachePaths(), currentPaths);
     }

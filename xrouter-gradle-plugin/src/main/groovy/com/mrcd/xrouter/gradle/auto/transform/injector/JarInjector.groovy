@@ -41,7 +41,7 @@ class JarInjector extends BaseCodeInjector {
                 injectMethodCreate(ctClass)
                 injectMethodDestroy(ctClass)
 
-                System.err.println("class >> $ctClass.name  重写 create>$mOverrideCreate  重写 destroy>$mOverrideDestroy")
+                print(ctClass)
                 def bytes = ctClass.toBytecode()
                 jarOutputStream.write(bytes)
                 ctClass.detach()

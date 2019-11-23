@@ -128,4 +128,12 @@ abstract class BaseCodeInjector implements CodeInjector {
         }
         return true
     }
+
+    protected void print(CtClass ctClass) {
+        String logMsg = "\n====================================\n" +
+                        "class >> $ctClass.name \n" +
+                        "重写 create > $mOverrideCreate  重写 destroy > $mOverrideDestroy \n" +
+                        "===================================="
+        DataBinderWriter.LOGS.add(logMsg)
+    }
 }
