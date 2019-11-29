@@ -16,7 +16,7 @@
 1.  创建一个用于管理路由的库（routers）
 2.  根目录下的build.gradle文件中添加classpath，并且在routers库的build.gradle文件中添加插件
     ```
-    classpath "com.mrcd:xrouter-gradle-plugin:1.1.3"
+    classpath "com.mrcd:xrouter-gradle-plugin:1.1.5"
     
     apply plugin: 'com.mrcd.xrouter.engine'
     ```
@@ -53,7 +53,7 @@
     ```
         javaCompileOptions {
                     annotationProcessorOptions {
-                        arguments = [MODULE_NAME: project.getName()]
+                        arguments = [MODULE_PATH: project.projectDir.absolutePath]
                     }
                 }
     ```
@@ -67,12 +67,12 @@
                 targetCompatibility = '1.8'
             }
     ```
-6.  点击Build -> MakeProject 构建生成路由配置文件
-7.  运行gradlew
+6.  运行gradlew
     :routers:make-Debug-routers或者在AS右侧gradle任务导航栏中找到对应的task双击运行即可
-8.  task运行完成后，在routers目录下会多出com.mrcd.xrouter.routers目录，在目录下即都是生成的路由表
-9.  如果不做配置，插件会自动生成两个task，分别对应make-Debug-routers和make-Release-routers，
-    开发者可通过XRouterConfig配置，目前config支持属性有：excludeProject，buildTypes，routerPath，详情可查看源码
+7.  task运行完成后，在routers目录下会多出com.mrcd.xrouter.routers目录，在目录下即都是生成的路由表
+8.  如果不做配置，插件会自动生成两个task，分别对应make-Debug-routers和make-Release-routers，
+    开发者可通过XRouterConfig配置，目前config支持属性有：excludeProject，buildTypes，routerPath，appModule，
+    在一个工程有多个application项目时，可以通过appModule强制指定router库对应的app工程，详情可查看源码
 
 ### 注意       
   

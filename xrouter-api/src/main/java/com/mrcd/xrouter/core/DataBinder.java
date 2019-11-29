@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 /**
  * 绑定数据的工具类
  */
-public class DataBinder {
+class DataBinder {
 
     private static final String BINDER_SUFFIX = "$$DataBinder";
 
@@ -20,7 +20,7 @@ public class DataBinder {
         invokeBindDataMethod(target, target.getClass());
     }
 
-    public static void invokeBindDataMethod(Object target, Class targetClass) {
+    static void invokeBindDataMethod(Object target, Class targetClass) {
         Class[] parameterTypes = {targetClass, IntentWrapper.class};
         Object[] params = new Object[]{target, IntentWrapper.getInstance()};
         invokeMethod(target, targetClass, "bindData", parameterTypes, params);
@@ -30,7 +30,7 @@ public class DataBinder {
         invokeReleaseDataMethod(target, target.getClass());
     }
 
-    public static void invokeReleaseDataMethod(Object target, Class targetClass) {
+    static void invokeReleaseDataMethod(Object target, Class targetClass) {
         Class[] parameterTypes = {targetClass, IntentWrapper.class};
         Object[] params = {target, IntentWrapper.getInstance()};
         invokeMethod(target, targetClass, "releaseData", parameterTypes, params);
