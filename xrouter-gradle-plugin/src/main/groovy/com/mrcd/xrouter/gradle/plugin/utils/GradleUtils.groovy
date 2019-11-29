@@ -1,7 +1,6 @@
 package com.mrcd.xrouter.gradle.plugin.utils
 
-import com.android.build.gradle.AppPlugin
-import com.android.build.gradle.LibraryPlugin
+
 import com.mrcd.xrouter.gradle.plugin.configs.ItemProjectConfig
 import org.gradle.api.Project
 
@@ -13,11 +12,11 @@ class GradleUtils {
     }
 
     static boolean isApp(Project project) {
-        return project.plugins.withType(AppPlugin)
+        return project.plugins.hasPlugin("com.android.application")
     }
 
     static boolean isLibrary(Project project) {
-        return project.plugins.withType(LibraryPlugin)
+        return project.plugins.hasPlugin("com.android.library")
     }
 
     static String getAnnotationDep(String libraryVersion, ItemProjectConfig config) {

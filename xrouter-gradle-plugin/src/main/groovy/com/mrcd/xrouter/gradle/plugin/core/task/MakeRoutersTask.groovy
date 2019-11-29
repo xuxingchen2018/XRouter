@@ -20,9 +20,6 @@ class MakeRoutersTask extends DefaultTask {
 
     @TaskAction
     void makeRouters() {
-        mProjects.each { name ->
-            System.err.println("参与构建的module有 : $name")
-        }
         File rootDir = project.rootProject.projectDir
 
         List<ClassPath> cachePaths = new ArrayList<>()
