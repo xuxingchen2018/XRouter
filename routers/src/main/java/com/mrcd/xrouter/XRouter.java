@@ -15,6 +15,10 @@ public final class XRouter {
     return INSTANCE;
   }
 
+  public DemoActivityRouter demoActivity() {
+    return new DemoActivityRouter();
+  }
+
   public MainThirdActivityRouter mainThirdActivity() {
     return new MainThirdActivityRouter();
   }
@@ -25,9 +29,5 @@ public final class XRouter {
 
   public AppMainRouter appMain() {
     return new AppMainRouter();
-  }
-
-  public DemoActivityRouter demoActivity() {
-    return new DemoActivityRouter();
   }
 }

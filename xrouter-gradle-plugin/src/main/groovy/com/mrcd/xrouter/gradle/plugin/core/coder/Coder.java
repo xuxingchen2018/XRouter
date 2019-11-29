@@ -1,11 +1,10 @@
 package com.mrcd.xrouter.gradle.plugin.core.coder;
 
-import com.mrcd.xrouter.gradle.auto.transform.DataBinderWriter;
 import com.mrcd.xrouter.gradle.plugin.bean.ClassPath;
 import com.mrcd.xrouter.gradle.plugin.configs.DevelopConfig;
 import com.mrcd.xrouter.gradle.plugin.core.EngineConfig;
+import com.mrcd.xrouter.gradle.plugin.utils.CollectionUtils;
 import com.mrcd.xrouter.gradle.plugin.utils.Constant;
-import com.mrcd.xrouter.gradle.plugin.utils.JsonIO;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,38 +37,43 @@ public class Coder {
      */
     public static void startCoding(File rootDir, EngineConfig config) {
         DevelopConfig developConfig = config.getDevelopConfig();
+        if (CollectionUtils.isEmpty(config.getProjects()) || CollectionUtils.isEmpty(config.getCachePaths())) {
+            return;
+        }
 
         sRoutersPkgName = developConfig.getRouterPath();
         Constant.generateJavaHomeDir(rootDir, config.getProjectName());
+
         List<ClassPath> currentPaths = new ArrayList<>();
         List<RouterCoder> routerCoders = new ArrayList<>();
+
         XRouterCoder xRouterCoder = new XRouterCoder();
-        for (String item : config.getProjects()) {
-            File file = Constant.getJsonCacheFile(rootDir, item);
-            if (file.exists()) {
-                List<ClassPath> paths = JsonIO.readJsonFile(file);
-                for (ClassPath path : paths) {
-                    RouterCoder coder = new RouterCoder(path, developConfig.getSupportAndroidX());
-                    if (currentPaths.contains(path)) {
-                        throw new RuntimeException(String.format(REPEATED_PATH, path.getRouterName()));
-                    }
-                    currentPaths.add(path);
-                    routerCoders.add(coder);
-                    xRouterCoder.createRouterMethod(path);
-                }
-            } else {
-                System.err.println(file.getAbsolutePath() + "  <<<<< File not exist");
+        //获取所有的路由信息
+        List<ClassPath> paths = config.getCachePaths();
+        for (ClassPath path : paths) {
+            RouterCoder coder = new RouterCoder(path, developConfig.getSupportAndroidX());
+            if (currentPaths.contains(path)) {
+                //各个module中的路由出现重名情况
+                throw new RuntimeException(String.format(REPEATED_PATH, path.getRouterName()));
             }
+            currentPaths.add(path);
+            routerCoders.add(coder);
+            xRouterCoder.createRouterMethod(path);
         }
         for (RouterCoder coder : routerCoders) {
             coder.build();
         }
         System.err.println("\n共处理===>> " + routerCoders.size() + " 条路由");
         xRouterCoder.build();
-        destroy(config.getCachePaths(), currentPaths);
+        destroy(currentPaths);
     }
 
-    private static void destroy(List<ClassPath> cache, List<ClassPath> currentPaths) {
+    /**
+     * 扫描出过期的路由文件，打印相关信息，提示删除
+     *
+     * @param currentPaths 配置文件中的路由信息
+     */
+    private static void destroy(List<ClassPath> currentPaths) {
         List<ClassPath> cachePaths = new ArrayList<>(readRouterDir());
         Iterator<ClassPath> cacheIterator = cachePaths.iterator();
         while (cacheIterator.hasNext()) {
@@ -90,15 +94,23 @@ public class Coder {
         }
     }
 
+    /**
+     * 在生成完所有的路由表后，插件会扫描对应路径下所有的路由类
+     * 如果扫描出来的信息和路由json配置文件中的信息不一致，那么说明有过期路由存在
+     *
+     * @return 路由目录下所有信息
+     */
     private static List<ClassPath> readRouterDir() {
         List<ClassPath> paths = new ArrayList<>();
         File routerDir = new File(Constant.sJavaFileOutPutDir, sRoutersPkgName.replaceAll("\\.", File.separator));
         String[] list = routerDir.list();
-        for (String name : list) {
-            ClassPath path = new ClassPath();
-            String routerName = name.substring(0, name.length() - JAVA_SUFFIX_LENGTH);
-            path.setPath(routerName);
-            paths.add(path);
+        if (null != list) {
+            for (String name : list) {
+                ClassPath path = new ClassPath();
+                String routerName = name.substring(0, name.length() - JAVA_SUFFIX_LENGTH);
+                path.setPath(routerName);
+                paths.add(path);
+            }
         }
         return paths;
     }

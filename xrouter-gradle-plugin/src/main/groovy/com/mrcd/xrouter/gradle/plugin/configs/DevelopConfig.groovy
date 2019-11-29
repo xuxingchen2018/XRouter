@@ -21,6 +21,12 @@ class DevelopConfig {
 
     boolean supportAndroidX = false
 
+    /**
+     * application项目名称
+     * 如果不指定，插件会自动扫描第一个application项目，一般情况下不会有问题，如果一个工程中存在多个application的话需要强制指定
+     */
+    String appModule = ""
+
     DevelopConfig() {
     }
 

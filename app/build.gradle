@@ -15,7 +15,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        javaCompileOptions { annotationProcessorOptions { arguments = [MODULE_NAME: project.getName()] } }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [MODULE_PATH: project.projectDir.absolutePath]
+            }
+        }
     }
     buildTypes {
         release {

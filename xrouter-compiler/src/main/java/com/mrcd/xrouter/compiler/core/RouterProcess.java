@@ -45,7 +45,7 @@ import javax.lang.model.util.Elements;
  * 自定义的编译器处理器
  */
 @AutoService(Processor.class)
-@SupportedOptions(Constant.KEY_MODULE_NAME)
+@SupportedOptions(Constant.KEY_MODULE_PATH)
 @SupportedAnnotationTypes({RouterProcess.PATH_ANNOTATION, RouterProcess.PARAM_ANNOTATION})
 public class RouterProcess extends AbstractProcessor {
 
@@ -63,9 +63,9 @@ public class RouterProcess extends AbstractProcessor {
      */
     private static final String ILLEGAL_ROUTER_NAME = "The route name can only be english letters >>>>>> %s";
 
-    private static final String BUILD_GRADLE_CONFIG = "javaCompileOptions { annotationProcessorOptions { arguments = [MODULE_NAME: project.getName()] } }";
+    private static final String BUILD_GRADLE_CONFIG = "javaCompileOptions { annotationProcessorOptions { arguments = [MODULE_PATH: project.projectDir.absolutePath] } }";
 
-    private static final String ILLEGAL_MODULE_NAME = "The module name is empty,please config build.gradle like this  >>>>>> " + BUILD_GRADLE_CONFIG;
+    private static final String ILLEGAL_MODULE_NAME = "The module path is empty,please config build.gradle like this  >>>>>> " + BUILD_GRADLE_CONFIG;
 
     /**
      * 存放缓存JSon数据的目录
@@ -90,9 +90,9 @@ public class RouterProcess extends AbstractProcessor {
     private ClassName mIntentWrap;
 
     /**
-     * 库的名字，注意，此处的数据依赖一库中的compileOption配置
+     * 库的路径，注意，此处的数据依赖一库中的compileOption配置
      */
-    private String mModuleName;
+    private String mModulePath;
 
     /**
      * JSon缓存文件对象
@@ -150,13 +150,13 @@ public class RouterProcess extends AbstractProcessor {
     private void initClassCacheFile() {
         Map<String, String> options = processingEnv.getOptions();
         if (null != options && options.size() > 0) {
-            mModuleName = options.get(Constant.KEY_MODULE_NAME);
+            mModulePath = options.get(Constant.KEY_MODULE_PATH);
         }
-        System.err.println("ModuleName: " + mModuleName);
-        if (TextUtils.isEmpty(mModuleName)) {
+        System.err.println("ModulePath: " + mModulePath);
+        if (TextUtils.isEmpty(mModulePath)) {
             throw new XRouterException(ILLEGAL_MODULE_NAME);
         }
-        File dir = new File(mModuleName, CLASS_CACHE_DIR);
+        File dir = new File(mModulePath, CLASS_CACHE_DIR);
         if (!dir.exists()) {
             dir.mkdirs();
         }

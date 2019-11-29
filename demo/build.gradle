@@ -17,7 +17,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [MODULE_NAME: project.getName()]
+                arguments = [MODULE_PATH: project.projectDir.absolutePath]
             }
         }
     }

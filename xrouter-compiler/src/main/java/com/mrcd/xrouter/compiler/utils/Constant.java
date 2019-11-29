@@ -31,8 +31,8 @@ public class Constant {
     public static final String DATA_BINDER_SUFFIX = "$$DataBinder";
 
     /**
-     * module名的key，根据key可以取到module名
+     * module路径的key，根据key可以取到module全路径
      */
-    public static final String KEY_MODULE_NAME = "MODULE_NAME";
+    public static final String KEY_MODULE_PATH = "MODULE_PATH";
 
 }

@@ -5,7 +5,6 @@ import com.mrcd.xrouter.gradle.plugin.configs.DevelopConfig
 import com.mrcd.xrouter.gradle.plugin.core.EngineConfig
 import com.mrcd.xrouter.gradle.plugin.core.coder.Coder
 import com.mrcd.xrouter.gradle.plugin.utils.Constant
-import com.mrcd.xrouter.gradle.plugin.utils.GradleUtils
 import com.mrcd.xrouter.gradle.plugin.utils.JsonIO
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
@@ -17,35 +16,32 @@ import org.gradle.api.tasks.TaskAction
  */
 class MakeRoutersTask extends DefaultTask {
 
-    File mRootDir
+    List<String> mProjects
 
     @TaskAction
     void makeRouters() {
-        List<String> projects = new ArrayList<>()
+        mProjects.each { name ->
+            System.err.println("参与构建的module有 : $name")
+        }
+        File rootDir = project.rootProject.projectDir
+
         List<ClassPath> cachePaths = new ArrayList<>()
         DevelopConfig config = project.XRouterConfig
 
-        //获取主工程目录下的APP工程
-        project.rootProject.childProjects.values().each { childProject ->
-            if (GradleUtils.isAndroidProject(childProject)) {
-                projects.add(childProject.name)
-            }
-        }
-
-        projects.removeAll(config.excludeProject)
-        projects.each { itemProject ->
-            File jsonFile = Constant.getJsonCacheFile(mRootDir, itemProject)
+        mProjects.removeAll(config.excludeProject)
+        mProjects.each { itemProject ->
+            File jsonFile = Constant.getJsonCacheFile(rootDir, itemProject)
             if (jsonFile.exists()) {
                 println "Read cache json >>> " + jsonFile
                 cachePaths.addAll(JsonIO.readJsonFile(jsonFile))
             }
         }
         EngineConfig engineConfig = new EngineConfig()
-        engineConfig.projects = projects
+        engineConfig.projects = mProjects
         engineConfig.cachePaths = cachePaths
         engineConfig.projectName = project.name
         engineConfig.developConfig = config
-        Coder.startCoding(mRootDir, engineConfig)
+        Coder.startCoding(rootDir, engineConfig)
     }
 
 }
