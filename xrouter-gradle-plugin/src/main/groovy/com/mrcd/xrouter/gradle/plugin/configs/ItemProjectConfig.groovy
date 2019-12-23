@@ -1,5 +1,6 @@
 package com.mrcd.xrouter.gradle.plugin.configs;
 
+@Deprecated
 class ItemProjectConfig {
 
     String name

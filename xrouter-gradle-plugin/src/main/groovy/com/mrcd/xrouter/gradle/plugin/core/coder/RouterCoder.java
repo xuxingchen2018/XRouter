@@ -87,6 +87,7 @@ public class RouterCoder {
             .initializer("$S", mClassPath.getClassName())
             .build();
         mClassBuilder = TypeSpec.classBuilder(mClassPath.getRouterName() + Constant.ROUTER_SUFFIX)
+                                .addJavadoc(Constant.JAVA_DOC_FORMAT)
                                 .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                                 .addField(TypeName.INT, "mRequestCode", Modifier.PRIVATE)
                                 .addField(mIntentArgName, "mArgs", Modifier.PRIVATE)
