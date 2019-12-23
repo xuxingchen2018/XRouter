@@ -19,6 +19,9 @@ class DevelopConfig {
      */
     String routerPath = "com.mrcd.xrouter.routers"
 
+    /**
+     * 是否支持AndroidX
+     */
     boolean supportAndroidX = false
 
     /**
@@ -26,6 +29,13 @@ class DevelopConfig {
      * 如果不指定，插件会自动扫描第一个application项目，一般情况下不会有问题，如果一个工程中存在多个application的话需要强制指定
      */
     String appModule = ""
+
+    /**
+     * 自定义路由启动器的名称，即"XRouter"
+     * 开发者可以自定义一个类名，
+     * eg：AppRouter，使用时就是AppRouter.getInstance().mainActivity().launch(context);
+     */
+    String customRouterLauncher = "XRouter"
 
     DevelopConfig() {
     }
@@ -60,5 +70,21 @@ class DevelopConfig {
 
     void setSupportAndroidX(boolean supportAndroidX) {
         this.supportAndroidX = supportAndroidX
+    }
+
+    String getAppModule() {
+        return appModule
+    }
+
+    void setAppModule(String appModule) {
+        this.appModule = appModule
+    }
+
+    String getCustomRouterLauncher() {
+        return customRouterLauncher
+    }
+
+    void setCustomRouterLauncher(String customRouterLauncher) {
+        this.customRouterLauncher = customRouterLauncher
     }
 }

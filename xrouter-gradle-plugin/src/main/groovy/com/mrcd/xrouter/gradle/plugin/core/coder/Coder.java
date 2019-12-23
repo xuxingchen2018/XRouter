@@ -47,7 +47,7 @@ public class Coder {
         List<ClassPath> currentPaths = new ArrayList<>();
         List<RouterCoder> routerCoders = new ArrayList<>();
 
-        XRouterCoder xRouterCoder = new XRouterCoder();
+        XRouterCoder xRouterCoder = new XRouterCoder(developConfig.getCustomRouterLauncher());
         //获取所有的路由信息
         List<ClassPath> paths = config.getCachePaths();
         for (ClassPath path : paths) {

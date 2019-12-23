@@ -5,6 +5,7 @@ println "publish >> " + isPublishPlugin
 apply plugin: 'com.mrcd.xrouter.engine'
 XRouterConfig {
     routerPath = "com.xxc.xrouter.routers"
+//    customRouterLauncher = "AppRouter"
 }
 
 def config = rootProject.ext
