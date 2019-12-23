@@ -8,6 +8,8 @@ import com.mrcd.xrouter.core.IntentWrapper;
 import java.lang.String;
 
 public final class MainSecondActivityRouter {
+  public static final String NAME = "com.mrcd.xrouter.demo.MainSecondActivity";
+
   private int mRequestCode;
 
   private IntentArgs mArgs;
@@ -40,14 +42,14 @@ public final class MainSecondActivityRouter {
   }
 
   public final void launch(Context context) {
-    mArgs.requestCode(mRequestCode).wrap(context).intercept(mInterceptor).launch("com.mrcd.xrouter.demo.MainSecondActivity");
+    mArgs.requestCode(mRequestCode).wrap(context).intercept(mInterceptor).launch(NAME);
   }
 
   public final void launch(Fragment fragment) {
-    mArgs.requestCode(mRequestCode).wrap(fragment).intercept(mInterceptor).launch("com.mrcd.xrouter.demo.MainSecondActivity");
+    mArgs.requestCode(mRequestCode).wrap(fragment).intercept(mInterceptor).launch(NAME);
   }
 
   public final void launch(android.app.Fragment fragment) {
-    mArgs.requestCode(mRequestCode).wrap(fragment).intercept(mInterceptor).launch("com.mrcd.xrouter.demo.MainSecondActivity");
+    mArgs.requestCode(mRequestCode).wrap(fragment).intercept(mInterceptor).launch(NAME);
   }
 }

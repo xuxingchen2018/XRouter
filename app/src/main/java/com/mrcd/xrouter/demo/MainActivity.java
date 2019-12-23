@@ -10,6 +10,7 @@ import com.mrcd.xrouter.annotation.XPath;
 import com.mrcd.xrouter.demo.bean.Animal;
 import com.mrcd.xrouter.demo.bean.Dog;
 import com.mrcd.xrouter.demo.bean.User;
+import com.xxc.xrouter.interceptor.GlobalInterceptor;
 
 @XPath(path = "AppMain")
 public class MainActivity extends AppCompatActivity {
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        XRouter.getInstance().setGlobalInterceptor(new GlobalInterceptor());
+
         findViewById(R.id.hello).setOnClickListener(v ->
             XRouter.getInstance()
             .mainThirdActivity()

@@ -7,6 +7,7 @@ import com.mrcd.xrouter.gradle.plugin.utils.Constant;
 import com.mrcd.xrouter.gradle.plugin.utils.StringUtils;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -81,11 +82,16 @@ public class RouterCoder {
     }
 
     private void generateField() {
+        Modifier[] modifiers = new Modifier[]{Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL};
+        FieldSpec routerPath = FieldSpec.builder(String.class, "NAME", modifiers)
+            .initializer("$S", mClassPath.getClassName())
+            .build();
         mClassBuilder = TypeSpec.classBuilder(mClassPath.getRouterName() + Constant.ROUTER_SUFFIX)
                                 .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                                 .addField(TypeName.INT, "mRequestCode", Modifier.PRIVATE)
                                 .addField(mIntentArgName, "mArgs", Modifier.PRIVATE)
                                 .addField(mInterceptorName, "mInterceptor", Modifier.PRIVATE)
+                                .addField(routerPath)
                                 .addMethod(mConstructor);
     }
 
@@ -165,8 +171,7 @@ public class RouterCoder {
     }
 
     private MethodSpec launcherMethod(ClassName className, String paramName) {
-        String routerPath = mClassPath.getClassName();
-        CodeBlock block = CodeBlock.of("mArgs.requestCode(mRequestCode).wrap(" + paramName + ").intercept" + "(mInterceptor).launch($S)", routerPath);
+        CodeBlock block = CodeBlock.of("mArgs.requestCode(mRequestCode).wrap(" + paramName + ").intercept" + "(mInterceptor).launch(NAME)");
 
         return MethodSpec.methodBuilder("launch")
             .addModifiers(Modifier.PUBLIC, Modifier.FINAL)

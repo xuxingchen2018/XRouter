@@ -11,6 +11,8 @@ import java.lang.Object;
 import java.lang.String;
 
 public final class AppMainRouter {
+  public static final String NAME = "com.mrcd.xrouter.demo.MainActivity";
+
   private int mRequestCode;
 
   private IntentArgs mArgs;
@@ -93,14 +95,14 @@ public final class AppMainRouter {
   }
 
   public final void launch(Context context) {
-    mArgs.requestCode(mRequestCode).wrap(context).intercept(mInterceptor).launch("com.mrcd.xrouter.demo.MainActivity");
+    mArgs.requestCode(mRequestCode).wrap(context).intercept(mInterceptor).launch(NAME);
   }
 
   public final void launch(Fragment fragment) {
-    mArgs.requestCode(mRequestCode).wrap(fragment).intercept(mInterceptor).launch("com.mrcd.xrouter.demo.MainActivity");
+    mArgs.requestCode(mRequestCode).wrap(fragment).intercept(mInterceptor).launch(NAME);
   }
 
   public final void launch(android.app.Fragment fragment) {
-    mArgs.requestCode(mRequestCode).wrap(fragment).intercept(mInterceptor).launch("com.mrcd.xrouter.demo.MainActivity");
+    mArgs.requestCode(mRequestCode).wrap(fragment).intercept(mInterceptor).launch(NAME);
   }
 }
