@@ -1,6 +1,6 @@
 package com.mrcd.xrouter.demo;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import com.mrcd.xrouter.annotation.XParam;
 import com.mrcd.xrouter.annotation.XPath;
 

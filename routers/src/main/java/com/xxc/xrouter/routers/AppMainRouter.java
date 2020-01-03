@@ -2,7 +2,7 @@ package com.xxc.xrouter.routers;
 
 import android.content.Context;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import com.mrcd.xrouter.core.IntentArgs;
 import com.mrcd.xrouter.core.IntentInterceptor;
 import com.mrcd.xrouter.core.IntentWrapper;

@@ -1,7 +1,7 @@
 package com.mrcd.xrouter.demo;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import com.mrcd.xrouter.XRouter;
 import com.mrcd.xrouter.annotation.Parcelable;
 import com.mrcd.xrouter.annotation.Serializable;

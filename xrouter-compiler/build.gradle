@@ -13,7 +13,7 @@ dependencies {
     compile 'com.squareup:javapoet:1.9.0'
     compile 'com.google.code.gson:gson:2.8.5'
     if (isPublishPlugin) {
-        implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
+        implementation "com.mrcd:xrouter-annotation-x:${ANNOTATION_VERSION_NAME}"
     } else {
         implementation project(":xrouter-annotation")
     }

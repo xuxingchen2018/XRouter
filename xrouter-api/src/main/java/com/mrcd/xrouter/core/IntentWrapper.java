@@ -3,7 +3,7 @@ package com.mrcd.xrouter.core;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import com.mrcd.xrouter.builder.IValueBuilder;
 import com.mrcd.xrouter.builder.impl.BooleanBuilder;
 import com.mrcd.xrouter.builder.impl.ByteBuilder;

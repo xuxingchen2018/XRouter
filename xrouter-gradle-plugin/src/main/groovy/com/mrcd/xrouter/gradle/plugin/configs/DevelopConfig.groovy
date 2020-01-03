@@ -21,7 +21,9 @@ class DevelopConfig {
 
     /**
      * 是否支持AndroidX
+     * 自1.2.0开始，androidx的支持将通过不同的artifactId做区分
      */
+    @Deprecated
     boolean supportAndroidX = false
 
     /**
@@ -64,10 +66,12 @@ class DevelopConfig {
         this.buildTypes = buildTypes
     }
 
+    @Deprecated
     boolean getSupportAndroidX() {
         return supportAndroidX
     }
 
+    @Deprecated
     void setSupportAndroidX(boolean supportAndroidX) {
         this.supportAndroidX = supportAndroidX
     }
