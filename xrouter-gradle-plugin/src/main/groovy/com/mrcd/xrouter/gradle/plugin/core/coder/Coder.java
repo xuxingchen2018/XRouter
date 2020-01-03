@@ -51,7 +51,7 @@ public class Coder {
         //获取所有的路由信息
         List<ClassPath> paths = config.getCachePaths();
         for (ClassPath path : paths) {
-            RouterCoder coder = new RouterCoder(path, developConfig.getSupportAndroidX());
+            RouterCoder coder = new RouterCoder(path);
             if (currentPaths.contains(path)) {
                 //各个module中的路由出现重名情况
                 throw new RuntimeException(String.format(REPEATED_PATH, path.getRouterName()));

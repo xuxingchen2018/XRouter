@@ -92,7 +92,7 @@ abstract class BaseCodeInjector implements CodeInjector {
                 return null
             }
         } catch (Exception e) {
-            e.printStackTrace()
+            System.err.println("catch exception >> ${e.message}")
         }
         return null
     }

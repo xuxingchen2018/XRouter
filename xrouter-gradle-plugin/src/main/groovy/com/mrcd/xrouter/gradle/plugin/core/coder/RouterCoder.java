@@ -25,8 +25,6 @@ import javax.lang.model.element.Modifier;
  */
 public class RouterCoder {
 
-    private boolean mSupportAndroidX;
-
     private ClassPath mClassPath;
 
     private ClassName mIntentArgName;
@@ -43,15 +41,12 @@ public class RouterCoder {
 
     private ClassName mSupportFragmentName;
 
-    private ClassName mAndroidXFragmentName;
-
     private MethodSpec mConstructor;
 
     private TypeSpec.Builder mClassBuilder;
 
-    public RouterCoder(ClassPath classPath, boolean supportAndroidX) {
+    public RouterCoder(ClassPath classPath) {
         mClassPath = classPath;
-        mSupportAndroidX = supportAndroidX;
         initNameSpace();
         generateConstructor();
         generateField();
@@ -70,7 +65,6 @@ public class RouterCoder {
         mInterceptorName = ClassName.get(Constant.LIBRARY_CORE_PKG_NAME, Constant.INTENT_INTERCEPTOR);
         mFragmentName = ClassName.get(Constant.FRAGMENT_PKG, Constant.FRAGMENT_NAME);
         mSupportFragmentName = ClassName.get(Constant.SUPPORT_FRAGMENT_PKG, Constant.FRAGMENT_NAME);
-        mAndroidXFragmentName = ClassName.get(Constant.ANDROIDX_FRAGMENT_PKG, Constant.FRAGMENT_NAME);
     }
 
     private void generateConstructor() {
@@ -157,15 +151,10 @@ public class RouterCoder {
         MethodSpec contextLauncherMethod = launcherMethod(mContextName, "context");
         mClassBuilder.addMethod(contextLauncherMethod);
 
-        if (mSupportAndroidX) {
-            //支持AndroidX的情况下，构建AndroidX下的fragment启动方法
-            MethodSpec xLauncherMethod = launcherMethod(mAndroidXFragmentName, "fragment");
-            mClassBuilder.addMethod(xLauncherMethod);
-        } else {
-            //support库下的fragment启动方法
-            MethodSpec supportLauncherMethod = launcherMethod(mSupportFragmentName, "fragment");
-            mClassBuilder.addMethod(supportLauncherMethod);
-        }
+        //support库下的fragment启动方法
+        MethodSpec supportLauncherMethod = launcherMethod(mSupportFragmentName, "fragment");
+        mClassBuilder.addMethod(supportLauncherMethod);
+
         //android.app包下的fragment启动方法
         MethodSpec fragmentLauncherMethod = launcherMethod(mFragmentName, "fragment");
         mClassBuilder.addMethod(fragmentLauncherMethod);

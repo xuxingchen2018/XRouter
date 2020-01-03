@@ -22,6 +22,7 @@ class DevelopConfig {
     /**
      * 是否支持AndroidX
      */
+    @Deprecated
     boolean supportAndroidX = false
 
     /**
@@ -64,10 +65,12 @@ class DevelopConfig {
         this.buildTypes = buildTypes
     }
 
+    @Deprecated
     boolean getSupportAndroidX() {
         return supportAndroidX
     }
 
+    @Deprecated
     void setSupportAndroidX(boolean supportAndroidX) {
         this.supportAndroidX = supportAndroidX
     }
