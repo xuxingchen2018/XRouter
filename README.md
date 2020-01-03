@@ -16,7 +16,7 @@
 1.  创建一个用于管理路由的库（routers）
 2.  根目录下的build.gradle文件中添加classpath，并且在routers库的build.gradle文件中添加插件
     ```
-    classpath "com.mrcd:xrouter-gradle-plugin:1.1.6"
+    classpath "com.mrcd:xrouter-gradle-plugin:1.2.1.1"
     
     apply plugin: 'com.mrcd.xrouter.engine'
     ```
@@ -80,7 +80,7 @@
 2.  excludeProject：排除某些library，XRouter不会扫描对应目录下缓存的路由JSon，也不会生成对应的Router类
 3.  buildTypes：构建类型，默认情况下为Debug与Release，若自定义了BuildType，且有代码差异，需构建对应type的task，且此处的buildTypes，首字母需大写
 4.  routerPath：路由表的输出路径，即所有生成的XXXActivityRouter类的输出路径
-5.  supportAndroidX：是否支持AndroidX，若项目中已经使用AndroidX，则设置为true，此处只影响fragment中activity的启动
+5.  supportAndroidX：自1.2.1.1版本开始已废弃，是否支持AndroidX，若项目中已经使用AndroidX，则设置为true，此处只影响fragment中activity的启动
 6.  appModule：根目录下application工程的工程名，如果根目录下只有一个application可以忽略，XRouter会自动扫描，
 如果有多个application，可以强制指定对应的application工程名，配合excludeProject使用，生成对应application的路由
 7.  customRouterLauncher：自定义的路由启动类的类名，即“XRouter”，默认情况下会生成com.mrcd.xrouter.XRouter类用于统一调用所有的Router类，
@@ -93,6 +93,10 @@
 1.  XRouter在处理Activity继承情况下，要求父类的数据访问权限设置为public，否则无法绑定父类的数据
     所以建议在声明数据变量时都设置为public，以避免不必要的异常情况
 2.  XRouter在编译期会将所有处理过的路由信息按照一定格式输出，开发者可以自行查看    
+3.  自1.2.1.1版本开始，AndroidX版本的支持将通过artifactId后缀加上“-x”来做支持，如：
+    ```
+    implementation "com.mrcd:xrouter-gradle-plugin-x:1.2.1.1"
+    ```
 
 ### 混淆Proguard
 
