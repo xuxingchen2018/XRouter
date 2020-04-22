@@ -84,7 +84,9 @@ abstract class BaseCodeInjector implements CodeInjector {
      * @return CtClass对象
      */
     protected CtClass getTarget(String classPath) {
-        String className = classPath.replaceAll(".class", "").replaceAll(Matcher.quoteReplacement(File.separator), ".")
+        String className = classPath.replaceAll(".class", "")
+                .replaceAll(Matcher.quoteReplacement(File.separator), ".")
+                .replaceAll("/", ".")
         try {
             CtClass ctClass = mPool.get(className)
             if (null != ctClass && ctClass.hasAnnotation(ANNOTATION_XPATH)) {
