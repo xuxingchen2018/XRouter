@@ -31,7 +31,13 @@ dependencies {
     compile 'org.javassist:javassist:3.25.0-GA'
 }
 
+//设置编码为UTF-8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
 sourceCompatibility = "8"
 targetCompatibility = "8"
 
-apply from: rootProject.file("publish/PublishConfig.gradle")
+apply from: project.file("publish/PublishConfig.gradle")
+

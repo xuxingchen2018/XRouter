@@ -1,0 +1,25 @@
+#GROUP,VERSION,siteUrl is necessary
+
+GROUP=com.xxc
+VERSION=1.0.2
+
+#platform=jcenter/maven
+#if platform is empty,this will be set as jcenter
+
+#localPublish=
+#this is only for platform = maven,and if localPublish is empty,this will be set as true
+
+#libraryName=
+#if libraryName is empty,this will be set as project.name
+
+libraryDesc=Just a library for test
+#if libraryDesc is empty,this will be set as project.name
+
+siteUrl=https://github.com/SevenNight2012/MavenPublish
+#gitUrl=
+#if gitUrl is empty,this will be set as siteUrl
+
+#issuesUrl=
+#if issuesUrl is empty,this will be set as siteUrl+"/issues"
+
+#default developer.id,developer.name,developer.email can be replace in JcenterPublish.gradle file
