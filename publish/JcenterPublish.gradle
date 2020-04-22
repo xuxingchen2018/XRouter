@@ -1,0 +1,130 @@
+apply plugin: 'android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+static def isEmpty(String text) {
+    return text == null || text.length() == 0
+}
+
+static def isNotEmpty(String text) {
+    return !isEmpty(text)
+}
+
+//此处的group与version直接定义到gradle.properties中，
+//注意要大写，因为gradle的project对象本身自带了group和version属性
+if (isEmpty(project.GROUP) || isEmpty(project.VERSION)) {
+    throw new IllegalArgumentException("The GROUP or VERSION is empty")
+}
+
+// 发布库的组织名称
+group = project.GROUP
+// 发布库的版本号
+version = project.VERSION
+boolean hasLibName = project.hasProperty("libraryName")
+boolean hasLibDesc = project.hasProperty("libraryDesc")
+boolean hasSiteUrl = project.hasProperty("siteUrl")
+boolean hasGitUrl = project.hasProperty("gitUrl")
+boolean hasIssueUrl = project.hasProperty("issuesUrl")
+
+def libraryName = (hasLibName && isNotEmpty(project.libraryName)) ? project.libraryName : project.name
+def libraryDesc = (hasLibDesc && isNotEmpty(project.libraryDesc)) ? project.libraryDesc : project.name
+
+if (!hasSiteUrl || isEmpty(project.siteUrl)) {
+    throw new IllegalArgumentException("The site url of the library is empty")
+}
+def siteUrl = project.siteUrl
+def gitUrl = (hasGitUrl && isNotEmpty(project.gitUrl)) ? project.gitUrl : siteUrl
+def issuesUrl = (hasIssueUrl && isNotEmpty(project.issuesUrl)) ? project.issuesUrl : siteUrl + "/issues"
+
+System.err.println("************************* Upload Info *****************************")
+println "dependency  >> implementation \"" + group + ":" + libraryName + ":" + version + "\""
+println "siteUrl      : " + siteUrl
+println "gitUrl       : " + gitUrl
+println "issuesUrl    : " + issuesUrl
+println "libraryDesc  : " + libraryDesc
+System.err.println("*******************************************************************")
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                // Add your description here
+                name libraryDesc    //项目描述
+                artifactId = libraryName
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'xuxingchen'
+                        name 'xuxingchen'
+                        email 'xuxingchen2016@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+if (project.hasProperty("android")) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+//设置编码为UTF-8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+//JavaDoc任务配置，防止因为doc任务异常退出
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+bintray {
+    //此处的开发者上传信息保存在环境变量中，省的每次创建新的工程时都要去复制一遍
+    user = System.getenv("bintray_user")
+    key = System.getenv("bintray_apiKey")
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        //发布到JCenter上的项目名字，注意这个name不在依赖语句中 依赖语句规则为:group:artifactId:version
+        name = libraryName
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        issueTrackerUrl = issuesUrl
+        publish = true
+    }
+}

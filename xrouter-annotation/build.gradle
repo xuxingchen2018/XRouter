@@ -7,4 +7,4 @@ dependencies {
 sourceCompatibility = "8"
 targetCompatibility = "8"
 
-apply from: "https://raw.githubusercontent.com/SevenNight2012/MyScript/master/publish/PublishConfig.gradle"
+apply from: rootProject.file("publish/PublishConfig.gradle")
