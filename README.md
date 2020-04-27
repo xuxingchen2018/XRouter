@@ -26,7 +26,7 @@
     apply plugin: "com.mrcd.xrouter.auto"
     ```
     如果不想使用插件，开发者也可以在activity中手动调用绑定数据和释放数据的方法，如下所示
-    ```
+    ```java
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         IntentWrapper.bindData(this);
@@ -45,27 +45,27 @@
     ```
 5.  将在需要使用路由功能的库中添加routers库的依赖，如果需要注解可另外添加依赖 
     ```
-        implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
-        annotationProcessor "com.mrcd:xrouter-compiler:${COMPILER_VERSION_NAME}"
+    implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
+    annotationProcessor "com.mrcd:xrouter-compiler:${COMPILER_VERSION_NAME}"
     ```
     注意，在添加了annotationProcessor注解处理后，请务必在build.gradle文件中的defaultConfig节点下添加如下配置
     
     ```
-        javaCompileOptions {
-                    annotationProcessorOptions {
-                        arguments = [MODULE_PATH: project.projectDir.absolutePath]
-                    }
-                }
+    javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [MODULE_PATH: project.projectDir.absolutePath]
+            }
+    }    
     ```
 
     如果有乱码问题，请在android节点下添加如下配置
 
     ```
-        compileOptions {
-                encoding = "UTF-8"
-                sourceCompatibility = '1.8'
-                targetCompatibility = '1.8'
-            }
+    compileOptions {
+        encoding = "UTF-8"
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
     ```
 6.  运行gradlew
     :routers:make-Debug-routers或者在AS右侧gradle任务导航栏中找到对应的task双击运行即可
