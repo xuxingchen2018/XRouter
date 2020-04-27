@@ -5,10 +5,12 @@ import com.mrcd.xrouter.gradle.plugin.configs.DevelopConfig;
 import com.mrcd.xrouter.gradle.plugin.core.EngineConfig;
 import com.mrcd.xrouter.gradle.plugin.utils.CollectionUtils;
 import com.mrcd.xrouter.gradle.plugin.utils.Constant;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
 
 /**
  * 代码器
@@ -32,8 +34,9 @@ public class Coder {
 
     /**
      * 开始生成代码
+     *
      * @param rootDir 主工程根目录
-     * @param config 配置项
+     * @param config  配置项
      */
     public static void startCoding(File rootDir, EngineConfig config) {
         DevelopConfig developConfig = config.getDevelopConfig();
@@ -63,7 +66,7 @@ public class Coder {
         for (RouterCoder coder : routerCoders) {
             coder.build();
         }
-        System.err.println("\n共处理===>> " + routerCoders.size() + " 条路由");
+        System.err.println("\nGenerate router ===>> " + routerCoders.size());
         xRouterCoder.build();
         destroy(currentPaths);
     }
@@ -102,7 +105,7 @@ public class Coder {
      */
     private static List<ClassPath> readRouterDir() {
         List<ClassPath> paths = new ArrayList<>();
-        File routerDir = new File(Constant.sJavaFileOutPutDir, sRoutersPkgName.replaceAll("\\.", File.separator));
+        File routerDir = new File(Constant.sJavaFileOutPutDir, sRoutersPkgName.replaceAll("\\.", Matcher.quoteReplacement(File.separator)));
         String[] list = routerDir.list();
         if (null != list) {
             for (String name : list) {

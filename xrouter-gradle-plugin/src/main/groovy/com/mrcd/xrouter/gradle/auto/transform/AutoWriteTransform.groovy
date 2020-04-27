@@ -80,6 +80,6 @@ class AutoWriteTransform extends Transform {
         DataBinderWriter.LOGS.each { String log ->
             System.err.println(log)
         }
-        System.err.println("\n共处理===>> ${DataBinderWriter.LOGS.size()} 条路由")
+        System.err.println("\nRouter count ===>> ${DataBinderWriter.LOGS.size()}")
     }
 }
