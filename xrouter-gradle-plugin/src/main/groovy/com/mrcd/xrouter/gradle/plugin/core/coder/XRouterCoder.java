@@ -1,7 +1,5 @@
 package com.mrcd.xrouter.gradle.plugin.core.coder;
 
-import static javax.lang.model.element.Modifier.PRIVATE;
-
 import com.mrcd.xrouter.gradle.plugin.bean.ClassPath;
 import com.mrcd.xrouter.gradle.plugin.utils.Constant;
 import com.mrcd.xrouter.gradle.plugin.utils.StringUtils;
@@ -11,8 +9,14 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+
 import java.io.IOException;
+
 import javax.lang.model.element.Modifier;
+
+import static com.mrcd.xrouter.gradle.plugin.utils.Constant.ANNOTATION_PKG_PATH;
+import static com.mrcd.xrouter.gradle.plugin.utils.Constant.NAVIGATION_NAME;
+import static javax.lang.model.element.Modifier.PRIVATE;
 
 /**
  * 用于动态生成XRouter的核心类
@@ -47,8 +51,11 @@ public class XRouterCoder {
     private void initNameSpace() {
         mSelfName = ClassName.get(XROUTER_PKG_PATH, mLauncherName);
         mInterceptorName = ClassName.get(Constant.LIBRARY_CORE_PKG_NAME, Constant.INTENT_INTERCEPTOR);
-        mClassBuilder = TypeSpec.classBuilder(mLauncherName).addJavadoc(Constant.JAVA_DOC_FORMAT)
-            .addModifiers(Modifier.PUBLIC, Modifier.FINAL);
+        ClassName navigation = ClassName.get(ANNOTATION_PKG_PATH, NAVIGATION_NAME);
+        mClassBuilder = TypeSpec.classBuilder(mLauncherName)
+                .addJavadoc(Constant.JAVA_DOC_FORMAT)
+                .addAnnotation(navigation)
+                .addModifiers(Modifier.PUBLIC, Modifier.FINAL);
     }
 
     private void generateConstructor() {

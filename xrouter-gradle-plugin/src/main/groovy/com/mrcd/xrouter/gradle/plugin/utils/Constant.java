@@ -47,6 +47,16 @@ public class Constant {
     public static final String LIBRARY_CORE_PKG_NAME = "com.mrcd.xrouter.core";
 
     /**
+     * XRouter的注解包路径
+     */
+    public static final String ANNOTATION_PKG_PATH = "com.mrcd.xrouter.annotation";
+
+    /**
+     * Navigation注解的类名
+     */
+    public static final String NAVIGATION_NAME = "Navigation";
+
+    /**
      * IntentArgs的类名
      */
     public static final String INTENT_ARG = "IntentArgs";
