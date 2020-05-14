@@ -1,7 +1,8 @@
 # Android XRouter
 ![](https://img.shields.io/bintray/v/sevennight2012/maven/xrouter-api)    
 
-利用APT实现的一个轻量级路由框架，注意本库基于Java1.8，所以需要配置compileOptions
+1.  利用APT实现的一个轻量级路由框架，注意本库基于Java1.8，所以需要配置compileOptions
+2.  配合[AndroidStudio插件](https://github.com/SevenNight2012/XRouter-Navigator)使用更方便(使用插件需要从1.2.2版本开始)
 
 ### 功能实现：
 
@@ -16,7 +17,7 @@
 1.  创建一个用于管理路由的库（routers）
 2.  根目录下的build.gradle文件中添加classpath，并且在routers库的build.gradle文件中添加插件
     ```
-    classpath "com.mrcd:xrouter-gradle-plugin:1.2.1.1"
+    classpath "com.mrcd:xrouter-gradle-plugin:1.2.2"
     
     apply plugin: 'com.mrcd.xrouter.engine'
     ```
@@ -39,11 +40,12 @@
         IntentWrapper.release(this);
     }
     ```
-4.  在routers库的build.gradle文件中添加依赖 
+4.  在routers库的build.gradle文件中添加依赖，自1.2.2版本开始，需要添加annotation库的依赖支持，主要用于辅助AS的插件使用
     ```
     api "com.mrcd:xrouter-api:${API_VERSION_NAME}"
+    implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
     ```
-5.  将在需要使用路由功能的库中添加routers库的依赖，如果需要注解可另外添加依赖 
+5.  将在需要使用路由功能的库中添加routers库的依赖，如果需要注解可另外添加依赖
     ```
     implementation "com.mrcd:xrouter-annotation:${ANNOTATION_VERSION_NAME}"
     annotationProcessor "com.mrcd:xrouter-compiler:${COMPILER_VERSION_NAME}"
