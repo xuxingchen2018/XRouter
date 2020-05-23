@@ -37,4 +37,4 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 
-apply from: "https://raw.githubusercontent.com/SevenNight2012/MyScript/master/publish/PublishConfig.gradle"
+apply from: rootProject.file("publish/PublishConfig.gradle")

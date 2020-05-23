@@ -6,6 +6,7 @@ import javassist.ClassPool
 import javassist.CtClass
 import javassist.CtMethod
 
+import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 /**
@@ -83,7 +84,9 @@ abstract class BaseCodeInjector implements CodeInjector {
      * @return CtClass对象
      */
     protected CtClass getTarget(String classPath) {
-        String className = classPath.replaceAll(".class", "").replaceAll(File.separator, ".")
+        String className = classPath.replaceAll(".class", "")
+                .replaceAll(Matcher.quoteReplacement(File.separator), ".")
+                .replaceAll("/", ".")
         try {
             CtClass ctClass = mPool.get(className)
             if (null != ctClass && ctClass.hasAnnotation(ANNOTATION_XPATH)) {
@@ -105,7 +108,7 @@ abstract class BaseCodeInjector implements CodeInjector {
      */
     protected boolean filterFile(File file) {
         String path = file.absolutePath
-        Pattern androidSupport = Pattern.compile("android/support.*")
+        Pattern androidSupport = Pattern.compile("android" + File.separator + "support.*")
         if (androidSupport.matcher(path).matches()) {
             return false
         }
@@ -131,9 +134,9 @@ abstract class BaseCodeInjector implements CodeInjector {
 
     protected void print(CtClass ctClass) {
         String logMsg = "\n====================================\n" +
-                        "class >> $ctClass.name \n" +
-                        "重写 create > $mOverrideCreate  重写 destroy > $mOverrideDestroy \n" +
-                        "===================================="
+                "class >> $ctClass.name \n" +
+                "override create > $mOverrideCreate  override destroy > $mOverrideDestroy \n" +
+                "===================================="
         DataBinderWriter.LOGS.add(logMsg)
     }
 }

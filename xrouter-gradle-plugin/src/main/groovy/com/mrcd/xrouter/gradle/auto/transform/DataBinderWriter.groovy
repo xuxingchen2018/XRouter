@@ -7,6 +7,8 @@ import com.mrcd.xrouter.gradle.auto.transform.injector.JarInjector
 import javassist.ClassPool
 import org.gradle.api.Project
 
+import java.util.regex.Matcher
+
 class DataBinderWriter {
 
     public static final String BUNDLE_PATH = "android.os.Bundle"
@@ -26,10 +28,10 @@ class DataBinderWriter {
         POOL.appendClassPath(project.android.bootClasspath[0].toString())
         POOL.importPackage(BUNDLE_PATH)
 
-        String dir = sApplicationId.replaceAll("\\.", File.separator)
-        println "应用applicationId >> " + sApplicationId
+        String dir = sApplicationId.replaceAll("\\.", Matcher.quoteReplacement(File.separator))
+        println "applicationId >> " + sApplicationId
         mPathR = dir + File.separator + "R.class"
-        println "R文件 >> " + mPathR
+        println "R >> " + mPathR
     }
 
     def appendClassPath = { String path, boolean hasIntentWrapper ->

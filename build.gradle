@@ -37,6 +37,11 @@ allprojects {
     }
 }
 
+//设置编码为UTF-8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
