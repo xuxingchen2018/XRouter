@@ -1,5 +1,7 @@
 package com.mrcd.xrouter.gradle.plugin.core.coder;
 
+import static com.mrcd.xrouter.gradle.plugin.utils.Constant.ANNOTATION_PKG_PATH;
+import static com.mrcd.xrouter.gradle.plugin.utils.Constant.NAVIGATION_NAME;
 import static javax.lang.model.element.Modifier.PRIVATE;
 
 import com.mrcd.xrouter.gradle.plugin.bean.ClassPath;
@@ -47,8 +49,11 @@ public class XRouterCoder {
     private void initNameSpace() {
         mSelfName = ClassName.get(XROUTER_PKG_PATH, mLauncherName);
         mInterceptorName = ClassName.get(Constant.LIBRARY_CORE_PKG_NAME, Constant.INTENT_INTERCEPTOR);
-        mClassBuilder = TypeSpec.classBuilder(mLauncherName).addJavadoc(Constant.JAVA_DOC_FORMAT)
-            .addModifiers(Modifier.PUBLIC, Modifier.FINAL);
+        ClassName navigation = ClassName.get(ANNOTATION_PKG_PATH, NAVIGATION_NAME);
+        mClassBuilder = TypeSpec.classBuilder(mLauncherName)
+                .addJavadoc(Constant.JAVA_DOC_FORMAT)
+                .addAnnotation(navigation)
+                .addModifiers(Modifier.PUBLIC, Modifier.FINAL);
     }
 
     private void generateConstructor() {
