@@ -12,7 +12,7 @@ import com.mrcd.xrouter.demo.bean.Dog;
 import com.mrcd.xrouter.demo.bean.User;
 import com.xxc.xrouter.interceptor.GlobalInterceptor;
 
-@XPath(path = "AppMain")
+@XPath()
 public class MainActivity extends AppCompatActivity {
 
     @XParam()

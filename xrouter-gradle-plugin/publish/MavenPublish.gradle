@@ -1,0 +1,105 @@
+apply plugin: 'maven'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+def userName
+def userPwd
+def repoUrl
+if (properties.propertyNames().any {
+    it == "MAVEN_USER_NAME"
+}) {
+    userName = properties.getProperty("MAVEN_USER_NAME")
+} else {
+    System.err.println("未配置用户名")
+}
+if (properties.propertyNames().any {
+    it == "MAVEN_USER_PWD"
+}) {
+    userPwd = properties.getProperty("MAVEN_USER_PWD")
+} else {
+    System.err.println("未配置密码")
+}
+if (properties.propertyNames().any {
+    it == "MAVEN_REPO_URL"
+}) {
+    repoUrl = properties.getProperty("MAVEN_REPO_URL")
+} else {
+    System.err.println("未配置仓库地址")
+}
+
+static def isEmpty(String text) {
+    return text == null || text.length() == 0
+}
+
+static def isNotEmpty(String text) {
+    return !isEmpty(text)
+}
+
+boolean hasLibName = project.hasProperty("libraryName")
+def libraryName = project.name
+if (hasLibName && isNotEmpty(project.libraryName)) {
+    libraryName = project.libraryName
+}
+
+def group = "${project.GROUP}"
+def version = "${project.VERSION}"
+
+System.err.println("************************* Upload Info *****************************")
+println "dependency  >> implementation \"" + group + ":" + libraryName + ":" + version + "\""
+//println "isLocalPublish           : " + isLocalPublish
+println "repoUrl      : " + repoUrl
+//println "snapshotRepositoryUrl    : " + snapshotRepositoryUrl
+System.err.println("*******************************************************************")
+
+if (project.hasProperty("android")) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: repoUrl) {
+                authentication(userName: userName, password: userPwd)
+            }
+
+            println "--->>>>> " + group
+            // 发布到maven的相关信息
+            pom.groupId = group// 项目包名
+            pom.artifactId = libraryName// 库名
+            pom.version = version// 版本号
+        }
+    }
+}

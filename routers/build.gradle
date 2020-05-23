@@ -41,8 +41,10 @@ dependencies {
 
     if (isPublishPlugin) {
         api "com.mrcd:xrouter-api-x:${API_VERSION_NAME}"
+        implementation "com.mrcd:xrouter-annotation-x:${ANNOTATION_VERSION_NAME}"
     } else {
         api project(":xrouter-api")
+        implementation project(":xrouter-annotation")
     }
 
 }
