@@ -27,7 +27,7 @@
     apply plugin: "com.mrcd.xrouter.auto"
     ```
     如果不想使用插件，开发者也可以在activity中手动调用绑定数据和释放数据的方法，如下所示
-    ```
+    ```java
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         IntentWrapper.bindData(this);
