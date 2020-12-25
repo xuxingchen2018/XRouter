@@ -2,6 +2,7 @@ package com.mrcd.xrouter.builder.impl;
 
 import android.content.Intent;
 import android.text.TextUtils;
+
 import com.mrcd.xrouter.builder.IValueBuilder;
 
 /**
@@ -11,7 +12,7 @@ public class IntentStringBuilder implements IValueBuilder<String> {
 
     @Override
     public void setIntent(Intent intent, String key, String value) {
-        if (null != intent && !TextUtils.isEmpty(key) && !TextUtils.isEmpty(value)) {
+        if (null != intent && !TextUtils.isEmpty(key) && value != null) {
             intent.putExtra(key, value);
         }
     }
